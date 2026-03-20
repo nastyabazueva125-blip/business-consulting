@@ -1,0 +1,2994 @@
+/* ============================================
+   ANASTASIA BAZUEVA - Business Consulting
+   Стиль: weareomega.io/consulting
+   ============================================ */
+
+/* CSS Variables */
+:root {
+    /* Цвета (точно как на референсе) */
+    --color-bg: #D9D9D9;
+    --color-dark: #1E1E1E;
+    --color-black: #0B0B0B;
+    --color-white: #FFFFFF;
+    --color-accent: #00FF00; /* Неоново-зелёный */
+    --color-gray: #666666;
+    --color-glitch-1: #8B5CF6; /* Фиолетовый */
+    --color-glitch-2: #EC4899; /* Розовый */
+    --color-glitch-3: #3B82F6; /* Синий */
+    
+    /* Типографика */
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Arial Narrow', 'Inter', sans-serif;
+    --font-mono: 'Courier New', monospace;
+    
+    /* Размеры */
+    --header-height: 60px;
+    --container-max: 1440px;
+    --spacing-unit: 8px;
+    
+    /* Единая сетка */
+    --grid-left: 35%;
+    --grid-right: 65%;
+    --grid-gap: 60px;
+    --section-padding: 60px;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-dark);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   CANVAS - Эффект шума/ряби (усиленный)
+   ============================================ */
+#noise-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: transparent;
+    padding: 16px 32px;
+}
+
+.header__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo-link {
+    text-decoration: none;
+    color: var(--color-dark);
+}
+
+.header__icon {
+    font-size: 24px;
+}
+
+.header__nav {
+    display: flex;
+    gap: 24px;
+}
+
+/* Навигация в стиле Bebas - BOLD, без зачёркивания */
+.nav__link {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-dark);
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+}
+
+.nav__link:hover {
+    color: var(--color-gray);
+}
+
+.header__sound-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 8px;
+}
+
+/* ============================================
+   FLOATING LABELS
+   ============================================ */
+.floating-label {
+    position: fixed;
+    z-index: 998;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.floating-label--left {
+    left: 20px;
+    bottom: 40px;
+}
+
+.floating-label--right {
+    right: 20px;
+    bottom: 40px;
+}
+
+.floating-label__box {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-dark);
+    background: transparent;
+}
+
+.floating-label__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--color-accent);
+    background: transparent;
+    transition: background 0.3s ease;
+}
+
+.floating-label__link:hover {
+    background: var(--color-accent);
+}
+
+.floating-label__icon {
+    font-size: 14px;
+    color: var(--color-dark);
+}
+
+.floating-label__text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-dark);
+}
+
+.floating-label__ticker {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: var(--color-gray);
+    letter-spacing: 0.1em;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: calc(var(--header-height) + 40px) var(--section-padding) 40px;
+    overflow: hidden;
+}
+
+.hero__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: var(--grid-left) var(--grid-right);
+    gap: var(--grid-gap);
+    align-items: center;
+}
+
+/* Левая часть - Бренд и глитч */
+.hero__left {
+    position: relative;
+    min-height: 600px;
+    padding-right: 40px;
+}
+
+.hero__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.brand__name {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    color: var(--color-dark);
+}
+
+.brand__ticker {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-gray);
+    letter-spacing: 0.1em;
+}
+
+/* Декоративный крест */
+.hero__cross {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+}
+
+/* ============================================
+   ФОТО С ГЛИТЧ-ЭФФЕКТОМ
+   ============================================ */
+.hero__photo-container {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 580px;
+    overflow: hidden;
+    /* Обрывистые края */
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 15%,
+        95% 15%,
+        95% 25%,
+        100% 25%,
+        100% 60%,
+        92% 60%,
+        92% 75%,
+        100% 75%,
+        100% 100%,
+        0 100%,
+        0 85%,
+        5% 85%,
+        5% 70%,
+        0 70%,
+        0 40%,
+        8% 40%,
+        8% 20%,
+        0 20%
+    );
+}
+
+.hero__photo-glitch {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero__photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero__photo--main {
+    z-index: 3;
+}
+
+/* RGB смещение для глитч-эффекта */
+.hero__photo--r {
+    z-index: 2;
+    mix-blend-mode: screen;
+    opacity: 0.8;
+    filter: grayscale(100%) brightness(1.2);
+    animation: glitchR 3s infinite;
+}
+
+.hero__photo--g {
+    z-index: 1;
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+    filter: hue-rotate(90deg);
+    animation: glitchG 4s infinite;
+}
+
+.hero__photo--b {
+    z-index: 0;
+    mix-blend-mode: screen;
+    opacity: 0.5;
+    filter: hue-rotate(180deg) saturate(2);
+    animation: glitchB 2.5s infinite;
+}
+
+@keyframes glitchR {
+    0%, 100% { transform: translate(0, 0); }
+    20% { transform: translate(3px, -2px); }
+    40% { transform: translate(-2px, 3px); }
+    60% { transform: translate(2px, 1px); }
+    80% { transform: translate(-3px, -1px); }
+}
+
+@keyframes glitchG {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(3px, -3px); }
+    75% { transform: translate(-1px, 1px); }
+}
+
+@keyframes glitchB {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(2px, 3px); }
+    66% { transform: translate(-3px, -2px); }
+}
+
+/* Scanlines поверх фото */
+.hero__photo-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Шум поверх фото */
+.hero__photo-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.cross__horizontal,
+.cross__vertical {
+    position: absolute;
+    background: var(--color-dark);
+}
+
+.cross__horizontal {
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cross__vertical {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ============================================
+   ГЛИТЧ-ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ
+   ============================================ */
+.glitch-decor {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.glitch-decor__shape {
+    position: absolute;
+    border-radius: 0;
+}
+
+/* Фиолетовый глитч-блок - позади фото */
+.glitch-decor__shape--1 {
+    width: 100%;
+    height: 620px;
+    top: 0;
+    left: -20px;
+    background: linear-gradient(
+        135deg,
+        var(--color-glitch-1) 0%,
+        var(--color-glitch-2) 50%,
+        var(--color-glitch-3) 100%
+    );
+    opacity: 0.4;
+    animation: glitchMove1 4s ease-in-out infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    z-index: -1;
+}
+
+/* Розовый глитч-блок - сбоку */
+.glitch-decor__shape--2 {
+    width: 150px;
+    height: 200px;
+    top: 400px;
+    right: -30px;
+    left: auto;
+    background: linear-gradient(
+        45deg,
+        var(--color-glitch-2) 0%,
+        var(--color-glitch-3) 100%
+    );
+    opacity: 0.6;
+    animation: glitchMove2 3s ease-in-out infinite;
+    mix-blend-mode: multiply;
+    z-index: 7;
+}
+
+/* Горизонтальные линии помех */
+.glitch-decor__lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.glitch-decor__lines span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    animation: scanline 0.1s linear infinite;
+}
+
+.glitch-decor__lines span:nth-child(1) { top: 20%; animation-delay: 0s; }
+.glitch-decor__lines span:nth-child(2) { top: 40%; animation-delay: 0.02s; }
+.glitch-decor__lines span:nth-child(3) { top: 60%; animation-delay: 0.04s; }
+.glitch-decor__lines span:nth-child(4) { top: 75%; animation-delay: 0.06s; }
+.glitch-decor__lines span:nth-child(5) { top: 90%; animation-delay: 0.08s; }
+
+/* Scanlines эффект */
+.glitch-decor__scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+}
+
+@keyframes glitchMove1 {
+    0%, 100% { transform: translate(0, 0) skewX(0deg); }
+    25% { transform: translate(5px, -5px) skewX(1deg); }
+    50% { transform: translate(-3px, 3px) skewX(-0.5deg); }
+    75% { transform: translate(2px, -2px) skewX(0.5deg); }
+}
+
+@keyframes glitchMove2 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+    33% { transform: translate(-10px, 5px); opacity: 0.3; }
+    66% { transform: translate(5px, -3px); opacity: 0.6; }
+}
+
+@keyframes glitchMove3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(8px, -8px) rotate(1deg); }
+}
+
+@keyframes scanline {
+    0% { transform: translateX(-100%); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(100%); opacity: 0; }
+}
+
+/* Правая часть - Контент */
+.hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 100%;
+    padding-right: var(--section-padding);
+    position: relative;
+}
+
+.hero__title-wrapper {
+    overflow: hidden;
+}
+
+/* Заголовок - точные размеры как на референсе: 70.66px */
+.hero__title {
+    font-family: var(--font-body);
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 70px;
+    letter-spacing: -2.8px;
+    color: var(--color-dark);
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Основной текст - точные размеры как на референсе: 37.8px */
+.hero__description {
+    max-width: 500px;
+    animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.hero__text {
+    font-family: var(--font-body);
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: -1.5px;
+    color: var(--color-dark);
+}
+
+/* Терминальный блок */
+.hero__terminal {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--color-dark);
+    animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.terminal__prompt {
+    display: block;
+    color: var(--color-gray);
+}
+
+.terminal__line {
+    display: block;
+}
+
+.terminal__cursor {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Мета-информация (tape/rec) */
+.hero__meta {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+.meta__tape {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-gray);
+}
+
+.tape__rec {
+    color: #FF0000;
+}
+
+.meta__price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.price__separator {
+    color: var(--color-gray);
+}
+
+/* CTA кнопка - увеличенная */
+.hero__cta {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 16px 32px;
+    border: 2px solid var(--color-dark);
+    background: transparent;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.8s ease-out 0.8s both;
+}
+
+.hero__cta:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+}
+
+.hero__cta:hover .cta__text {
+    color: var(--color-black);
+}
+
+.hero__cta .cta__text {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-dark);
+    letter-spacing: 0.1em;
+    transition: color 0.3s ease;
+}
+
+/* График роста маржи с глитч-элементами */
+.hero__chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-top: 40px;
+    opacity: 0.4;
+}
+
+/* Крестики в стиле референса */
+.chart__cross {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.chart__cross .cross__h,
+.chart__cross .cross__v {
+    position: absolute;
+    background: var(--color-dark);
+}
+
+.chart__cross .cross__h {
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.chart__cross .cross__v {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+.chart__cross--1 {
+    top: 10px;
+    left: 20px;
+}
+
+.chart__cross--2 {
+    top: 60px;
+    right: 80px;
+}
+
+.chart__cross--3 {
+    bottom: 30px;
+    left: 150px;
+}
+
+/* Глитч-блоки */
+.chart__glitch {
+    position: absolute;
+    background: linear-gradient(
+        135deg,
+        var(--color-glitch-1) 0%,
+        var(--color-glitch-2) 50%,
+        var(--color-glitch-3) 100%
+    );
+    opacity: 0.6;
+    animation: glitchFloat 4s ease-in-out infinite;
+}
+
+.chart__glitch--1 {
+    width: 80px;
+    height: 40px;
+    top: 20px;
+    right: 40px;
+    animation-delay: 0s;
+}
+
+.chart__glitch--2 {
+    width: 60px;
+    height: 30px;
+    top: 80px;
+    left: 60px;
+    animation-delay: 1s;
+}
+
+.chart__glitch--3 {
+    width: 100px;
+    height: 20px;
+    bottom: 40px;
+    right: 100px;
+    animation-delay: 2s;
+}
+
+/* Сканлайны */
+.chart__scanline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--color-dark) 20%, 
+        var(--color-dark) 80%, 
+        transparent 100%
+    );
+    opacity: 0.3;
+    animation: scanlineMove 3s linear infinite;
+}
+
+.chart__scanline--1 {
+    top: 30%;
+}
+
+.chart__scanline--2 {
+    top: 70%;
+    animation-delay: 1.5s;
+}
+
+.hero__chart {
+    position: relative;
+    width: 100%;
+    height: 150px;
+}
+
+.chart__svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chart__grid-line {
+    stroke: var(--color-dark);
+    stroke-width: 0.5;
+    opacity: 0.3;
+}
+
+.chart__line--main {
+    stroke: var(--color-dark);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: drawLine 3s ease-out forwards;
+}
+
+.chart__line--glitch1 {
+    stroke: var(--color-glitch-1);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.5;
+    transform: translate(2px, -1px);
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: drawLine 3s ease-out 0.1s forwards, glitchLine 4s ease-in-out infinite 3s;
+}
+
+.chart__line--glitch2 {
+    stroke: var(--color-glitch-2);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.5;
+    transform: translate(-2px, 1px);
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: drawLine 3s ease-out 0.2s forwards, glitchLine 4s ease-in-out infinite 3.5s reverse;
+}
+
+.chart__area {
+    fill: url(#chartGradient);
+    opacity: 0.1;
+    animation: fadeInChart 2s ease-out 1s forwards;
+}
+
+.chart__dot {
+    fill: var(--color-dark);
+    opacity: 0;
+    animation: dotAppear 0.3s ease-out forwards;
+}
+
+.chart__dot:nth-child(5) { animation-delay: 1s; }
+.chart__dot:nth-child(6) { animation-delay: 1.5s; }
+.chart__dot:nth-child(7) { animation-delay: 2s; }
+.chart__dot:nth-child(8) { animation-delay: 2.5s; }
+.chart__dot:nth-child(9) { animation-delay: 3s; }
+
+.chart__label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: var(--font-mono);
+    opacity: 0;
+    animation: fadeInChart 1s ease-out 2.5s forwards;
+}
+
+.chart__label-text {
+    font-size: 10px;
+    color: var(--color-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.chart__label-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes glitchLine {
+    0%, 100% { transform: translate(2px, -1px); opacity: 0.5; }
+    25% { transform: translate(-3px, 2px); opacity: 0.3; }
+    50% { transform: translate(1px, -2px); opacity: 0.6; }
+    75% { transform: translate(-1px, 1px); opacity: 0.4; }
+}
+
+@keyframes dotAppear {
+    to {
+        opacity: 0.8;
+    }
+}
+
+@keyframes fadeInChart {
+    to {
+        opacity: 0.3;
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+    .header__nav {
+        display: none;
+    }
+    
+    .hero__container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .hero__left {
+        order: 2;
+        min-height: auto;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .hero__content {
+        order: 1;
+        padding-right: 0;
+    }
+    
+    .floating-label {
+        display: none;
+    }
+    
+    .hero__title {
+        font-size: 56px;
+        line-height: 1;
+    }
+    
+    .hero__text {
+        font-size: 26px;
+        line-height: 1.3;
+    }
+    
+    .hero__content {
+        gap: 16px;
+    }
+    
+    .glitch-decor__shape--1 {
+        width: 200px;
+        height: 250px;
+    }
+    
+    .photo-container {
+        width: 300px;
+        height: 380px;
+    }
+    
+    .hero__chart-wrapper {
+        height: 150px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 16px;
+    }
+    
+    .hero {
+        padding: calc(var(--header-height) + 20px) 16px 40px;
+    }
+    
+    .hero__container {
+        gap: 32px;
+    }
+    
+    .hero__left {
+        order: 2;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .hero__content {
+        order: 1;
+        gap: 12px;
+    }
+    
+    .hero__title {
+        font-size: 48px;
+        line-height: 1;
+        letter-spacing: -2px;
+    }
+    
+    .hero__text {
+        font-size: 22px;
+        line-height: 1.3;
+        letter-spacing: -0.5px;
+    }
+    
+    .hero__terminal {
+        margin: 8px 0;
+    }
+    
+    .hero__meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .photo-container {
+        width: 280px;
+        height: 340px;
+    }
+    
+    .hero__photo-container {
+        position: relative;
+        top: 0;
+        width: 280px;
+        height: 340px;
+        clip-path: none;
+    }
+    
+    .hero__photo {
+        object-fit: contain;
+        object-position: center center;
+    }
+    
+    .hero__chart-wrapper {
+        height: 120px;
+        margin-top: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: calc(var(--header-height) + 16px) 16px 32px;
+    }
+    
+    .hero__title {
+        font-size: 40px;
+        line-height: 1;
+        letter-spacing: -1.5px;
+    }
+    
+    .hero__text {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+    
+    .hero__content {
+        gap: 10px;
+    }
+    
+    .photo-container {
+        width: 240px;
+        height: 290px;
+    }
+    
+    .hero__photo-container {
+        position: relative;
+        top: 0;
+        width: 240px;
+        height: 290px;
+        clip-path: none;
+    }
+    
+    .hero__photo {
+        object-fit: contain;
+        object-position: center center;
+    }
+    
+    .hero__cta {
+        padding: 14px 28px;
+    }
+    
+    .hero__chart-wrapper {
+        height: 100px;
+        margin-top: 12px;
+    }
+}
+
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+.about {
+    padding: 120px var(--section-padding);
+    background-color: var(--color-bg);
+    position: relative;
+}
+
+.about__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: var(--grid-left) var(--grid-right);
+    gap: var(--grid-gap);
+    align-items: start;
+}
+
+.about__left {
+    position: relative;
+    min-height: 200px;
+}
+
+.about__cross {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 30px;
+    height: 30px;
+}
+
+.about__cross .cross__horizontal,
+.about__cross .cross__vertical {
+    position: absolute;
+    background: var(--color-dark);
+}
+
+.about__cross .cross__horizontal {
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.about__cross .cross__vertical {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.about__content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-right: var(--section-padding);
+}
+
+.about__title {
+    font-family: var(--font-body);
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 70px;
+    letter-spacing: -2.8px;
+    color: var(--color-dark);
+    margin-bottom: 16px;
+}
+
+.about__text-block {
+    max-width: 100%;
+}
+
+.about__text {
+    font-family: var(--font-body);
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 42px;
+    letter-spacing: -1.5px;
+    color: var(--color-dark);
+}
+
+.about__terminal {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--color-dark);
+    margin-top: 24px;
+}
+
+.about__terminal .terminal__prompt {
+    display: block;
+    color: var(--color-gray);
+}
+
+.about__terminal .terminal__line {
+    display: block;
+}
+
+.about__terminal .terminal__cursor {
+    animation: blink 1s infinite;
+}
+
+/* About Responsive */
+@media (max-width: 1024px) {
+    .about__container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .about__left {
+        display: none;
+    }
+    
+    .about__title {
+        font-size: 50px;
+        line-height: 50px;
+    }
+    
+    .about__text {
+        font-size: 28px;
+        line-height: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 80px 16px;
+    }
+    
+    .about__title {
+        font-size: 36px;
+        line-height: 36px;
+    }
+    
+    .about__text {
+        font-size: 22px;
+        line-height: 26px;
+    }
+}
+
+
+/* ============================================
+   ГЛОБАЛЬНЫЕ ГЛИТЧ-ЭФФЕКТЫ
+   ============================================ */
+
+/* Глитч-линии по всему сайту */
+.glitch-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.glitch-lines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 2px,
+        rgba(0, 0, 0, 0.02) 4px
+    );
+    animation: scanlineMove 8s linear infinite;
+}
+
+@keyframes scanlineMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100px); }
+}
+
+/* Случайные глитч-полосы */
+.glitch-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--color-glitch-1) 20%, 
+        var(--color-glitch-2) 50%, 
+        var(--color-glitch-3) 80%, 
+        transparent 100%
+    );
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9998;
+    animation: glitchBarAppear 4s ease-in-out infinite;
+}
+
+.glitch-bar--1 {
+    top: 15%;
+    animation-delay: 0s;
+}
+
+.glitch-bar--2 {
+    top: 45%;
+    animation-delay: 1.5s;
+}
+
+.glitch-bar--3 {
+    top: 75%;
+    animation-delay: 3s;
+}
+
+@keyframes glitchBarAppear {
+    0%, 90%, 100% { opacity: 0; transform: scaleX(0); }
+    92%, 98% { opacity: 0.6; transform: scaleX(1); }
+}
+
+/* Глитч-блоки для секции About */
+.about__glitch-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.about__glitch-shape {
+    position: absolute;
+    background: linear-gradient(
+        135deg,
+        var(--color-glitch-1) 0%,
+        var(--color-glitch-2) 50%,
+        var(--color-glitch-3) 100%
+    );
+    opacity: 0.15;
+}
+
+.about__glitch-shape--1 {
+    width: 200px;
+    height: 100px;
+    top: 20%;
+    left: 10%;
+    animation: glitchFloat 6s ease-in-out infinite;
+}
+
+.about__glitch-shape--2 {
+    width: 150px;
+    height: 80px;
+    bottom: 30%;
+    left: 5%;
+    animation: glitchFloat 8s ease-in-out infinite reverse;
+}
+
+@keyframes glitchFloat {
+    0%, 100% { transform: translate(0, 0) skewX(0deg); opacity: 0.15; }
+    25% { transform: translate(10px, -5px) skewX(2deg); opacity: 0.25; }
+    50% { transform: translate(-5px, 10px) skewX(-1deg); opacity: 0.1; }
+    75% { transform: translate(5px, 5px) skewX(1deg); opacity: 0.2; }
+}
+
+
+/* ============================================
+   FORMATS SECTION (SERVICES)
+   ============================================ */
+.formats {
+    background-color: var(--color-black);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Большой заголовок SERVICE */
+.formats__header {
+    padding: 80px var(--section-padding) 40px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    position: relative;
+}
+
+.formats__title {
+    font-family: var(--font-display);
+    font-size: clamp(120px, 20vw, 280px);
+    font-weight: 400;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.formats__ticker {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.formats__ticker span {
+    width: 2px;
+    height: 12px;
+    background: var(--color-white);
+    opacity: 0.5;
+}
+
+.formats__ticker span:nth-child(odd) {
+    height: 8px;
+}
+
+/* Контейнер карточек */
+.formats__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 60px var(--section-padding) 120px;
+}
+
+.formats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+/* Карточка услуги */
+.format-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+/* Визуальный контейнер - splatter + иконка */
+.format-card__visual {
+    position: relative;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Splatter эффект на фоне */
+.format-card__splatter {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.8) 0%, transparent 35%),
+                radial-gradient(circle at 50% 80%, rgba(255,255,255,0.7) 0%, transparent 30%),
+                radial-gradient(circle at 20% 50%, rgba(57,255,20,0.3) 0%, transparent 25%);
+    filter: blur(8px);
+    opacity: 0.9;
+    animation: splatterPulse 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+.format-card__splatter--2 {
+    background: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.85) 0%, transparent 40%),
+                radial-gradient(circle at 30% 70%, rgba(255,255,255,0.75) 0%, transparent 30%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.65) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(236,72,153,0.3) 0%, transparent 30%);
+    animation-delay: 1s;
+}
+
+.format-card__splatter--3 {
+    background: radial-gradient(circle at 40% 50%, rgba(255,255,255,0.9) 0%, transparent 45%),
+                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.8) 0%, transparent 35%),
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.7) 0%, transparent 25%),
+                radial-gradient(circle at 60% 70%, rgba(139,92,246,0.3) 0%, transparent 25%);
+    animation-delay: 2s;
+}
+
+@keyframes splatterPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.1); opacity: 0.6; }
+}
+
+/* Иконка поверх splatter */
+.format-card__icon {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.format-card__icon svg {
+    width: 90px;
+    height: 90px;
+    filter: drop-shadow(0 0 15px rgba(57, 255, 20, 0.4));
+    animation: iconFloat 4s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* Контент карточки */
+.format-card__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.format-card__number {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    margin-bottom: 8px;
+}
+
+.format-card__title {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin: 0 0 8px 0;
+    padding: 8px 16px;
+    border: 1px solid var(--color-white);
+    display: inline-block;
+    align-self: flex-start;
+}
+
+/* Крупный заголовок без рамки */
+.format-card__title-big {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.format-card__price {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-accent);
+    margin-bottom: 16px;
+}
+
+.format-card__desc {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-white);
+    opacity: 0.8;
+    margin: 0 0 24px 0;
+    flex: 1;
+}
+
+.format-card__cta {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid var(--color-white);
+    background: transparent;
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.format-card__cta:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+/* Декоративный крест между карточками */
+.formats__cross {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+/* Responsive для Formats */
+@media (max-width: 1024px) {
+    .formats__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .formats__title {
+        font-size: clamp(80px, 15vw, 180px);
+    }
+}
+
+@media (max-width: 768px) {
+    .formats__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .formats__title {
+        font-size: clamp(60px, 12vw, 120px);
+    }
+    
+    .format-card {
+        min-height: auto;
+    }
+}
+
+
+/* ============================================
+   PROBLEMS SECTION (С ЧЕМ ПРИХОДЯТ)
+   ============================================ */
+.problems {
+    padding: 120px var(--section-padding);
+    background-color: var(--color-bg);
+    position: relative;
+}
+
+.problems__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: var(--grid-left) var(--grid-right);
+    gap: var(--grid-gap);
+    align-items: start;
+}
+
+.problems__left {
+    position: relative;
+}
+
+.problems__title {
+    font-family: var(--font-body);
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -2.8px;
+    color: var(--color-dark);
+    margin: 0 0 40px 0;
+}
+
+.problems__cross {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.problems__cross .cross__horizontal,
+.problems__cross .cross__vertical {
+    position: absolute;
+    background: var(--color-dark);
+}
+
+.problems__cross .cross__horizontal {
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.problems__cross .cross__vertical {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.problems__content {
+    padding-left: 0;
+    padding-right: var(--section-padding);
+}
+
+/* Список проблем со стрелочками */
+.problems__list {
+    margin-bottom: 60px;
+}
+
+.problem-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.problem-item:hover {
+    padding-left: 10px;
+    border-bottom-color: var(--color-accent);
+}
+
+.problem-item__left {
+    font-family: var(--font-body);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--color-dark);
+    min-width: 250px;
+}
+
+.problem-item__arrow {
+    font-size: 32px;
+    color: var(--color-accent);
+    font-weight: 300;
+    transition: transform 0.3s ease;
+}
+
+.problem-item:hover .problem-item__arrow {
+    transform: translateX(10px);
+}
+
+.problem-item__right {
+    font-family: var(--font-body);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--color-gray);
+}
+
+/* Итоговый текст */
+.problems__summary {
+    margin-top: 40px;
+}
+
+.problems__text {
+    font-family: var(--font-body);
+    font-size: 32px;
+    line-height: 1.4;
+    letter-spacing: -1px;
+    color: var(--color-dark);
+    margin: 0 0 30px 0;
+}
+
+.problems__terminal {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-dark);
+    opacity: 0.7;
+}
+
+.problems__terminal .terminal__line {
+    display: block;
+}
+
+/* ============================================
+   IMPLEMENTATION SECTION (ВНЕДРЕНИЕ)
+   ============================================ */
+.implementation {
+    padding: 120px var(--section-padding);
+    background-color: var(--color-black);
+    position: relative;
+    overflow: hidden;
+}
+
+.implementation__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: var(--grid-left) var(--grid-right);
+    gap: var(--grid-gap);
+    align-items: start;
+}
+
+.implementation__left {
+    position: relative;
+}
+
+.implementation__title {
+    font-family: var(--font-body);
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -2.8px;
+    color: var(--color-white);
+    margin: 0 0 40px 0;
+}
+
+/* Глитч-декор для Implementation */
+.implementation__glitch-decor {
+    position: relative;
+    height: 150px;
+}
+
+.implementation__glitch-shape {
+    position: absolute;
+    background: linear-gradient(
+        135deg,
+        var(--color-glitch-1) 0%,
+        var(--color-glitch-2) 50%,
+        var(--color-glitch-3) 100%
+    );
+    opacity: 0.3;
+}
+
+.implementation__glitch-shape--1 {
+    width: 180px;
+    height: 80px;
+    top: 0;
+    left: 0;
+    animation: glitchFloat 6s ease-in-out infinite;
+}
+
+.implementation__glitch-shape--2 {
+    width: 120px;
+    height: 60px;
+    top: 60px;
+    left: 40px;
+    animation: glitchFloat 8s ease-in-out infinite reverse;
+}
+
+.implementation__content {
+    padding-left: 0;
+    padding-right: var(--section-padding);
+}
+
+.implementation__text {
+    font-family: var(--font-body);
+    font-size: 38px;
+    line-height: 1.3;
+    letter-spacing: -1.5px;
+    color: var(--color-white);
+    margin: 0 0 30px 0;
+}
+
+.implementation__subtext {
+    font-family: var(--font-body);
+    font-size: 24px;
+    line-height: 1.5;
+    color: var(--color-white);
+    opacity: 0.8;
+    margin: 0 0 40px 0;
+}
+
+.implementation__terminal {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-white);
+    opacity: 0.7;
+    margin-bottom: 40px;
+}
+
+.implementation__terminal .terminal__line {
+    display: block;
+}
+
+.implementation__cta {
+    display: inline-block;
+    padding: 16px 32px;
+    border: 2px solid var(--color-white);
+    background: transparent;
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+}
+
+.implementation__cta:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+/* Responsive для Problems и Implementation */
+@media (max-width: 1024px) {
+    .problems__container,
+    .implementation__container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .problems__title,
+    .implementation__title {
+        font-size: 50px;
+    }
+    
+    .problem-item__left,
+    .problem-item__right {
+        font-size: 22px;
+    }
+    
+    .problem-item__left {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .problems,
+    .implementation {
+        padding: 80px 20px;
+    }
+    
+    .problem-item {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .problem-item__left {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .problem-item__arrow {
+        display: none;
+    }
+    
+    .problem-item__right {
+        width: 100%;
+        padding-left: 20px;
+        border-left: 2px solid var(--color-accent);
+    }
+    
+    .problems__text,
+    .implementation__text {
+        font-size: 24px;
+    }
+}
+
+
+/* ============================================
+   CONTACT SECTION (ФОРМА)
+   ============================================ */
+.contact {
+    padding: 120px var(--section-padding);
+    background-color: var(--color-bg);
+    position: relative;
+}
+
+.contact__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: var(--grid-left) var(--grid-right);
+    gap: var(--grid-gap);
+    align-items: start;
+}
+
+.contact__left {
+    position: relative;
+}
+
+.contact__title {
+    font-family: var(--font-body);
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: var(--color-dark);
+    margin: 0 0 40px 0;
+}
+
+/* Глитч-декор для Contact */
+.contact__glitch-decor {
+    position: relative;
+    height: 200px;
+}
+
+.contact__glitch-shape {
+    position: absolute;
+    background: linear-gradient(
+        135deg,
+        var(--color-glitch-1) 0%,
+        var(--color-glitch-2) 50%,
+        var(--color-glitch-3) 100%
+    );
+    filter: blur(20px);
+    opacity: 0.4;
+}
+
+.contact__glitch-shape--1 {
+    width: 180px;
+    height: 100px;
+    top: 0;
+    left: 0;
+    animation: glitchFloat 6s ease-in-out infinite;
+}
+
+.contact__glitch-shape--2 {
+    width: 120px;
+    height: 80px;
+    top: 80px;
+    left: 60px;
+    animation: glitchFloat 8s ease-in-out infinite reverse;
+}
+
+.contact__glitch-shape--3 {
+    width: 100px;
+    height: 60px;
+    top: 40px;
+    left: 120px;
+    animation: glitchFloat 5s ease-in-out infinite;
+}
+
+.contact__content {
+    padding-left: 0;
+    padding-right: var(--section-padding);
+}
+
+/* Форма */
+.contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form__label {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-dark);
+}
+
+.form__input,
+.form__textarea {
+    font-family: var(--font-body);
+    font-size: 18px;
+    padding: 16px 20px;
+    border: 2px solid var(--color-dark);
+    background: transparent;
+    color: var(--color-dark);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form__input:focus,
+.form__textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.1);
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+    color: var(--color-gray);
+    opacity: 0.6;
+}
+
+.form__textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form__submit {
+    align-self: flex-start;
+    padding: 18px 40px;
+    border: 2px solid var(--color-dark);
+    background: var(--color-dark);
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form__submit:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-dark);
+}
+
+.contact__terminal {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-dark);
+    opacity: 0.7;
+}
+
+.contact__terminal .terminal__line {
+    display: block;
+}
+
+/* Responsive для Contact */
+@media (max-width: 1024px) {
+    .contact__container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact__title {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact {
+        padding: 80px 20px;
+    }
+    
+    .contact__title {
+        font-size: 32px;
+    }
+    
+    .form__input,
+    .form__textarea {
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+}
+
+
+/* ============================================
+   CASES SECTION (КЕЙСЫ)
+   ============================================ */
+.cases {
+    position: relative;
+}
+
+.cases__block {
+    padding: 80px var(--section-padding);
+}
+
+.cases__block--consulting {
+    background: var(--color-bg);
+}
+
+.cases__block--products {
+    background: var(--color-black);
+}
+
+.cases__header {
+    margin-bottom: 60px;
+}
+
+.cases__title {
+    font-family: var(--font-display);
+    font-size: clamp(60px, 10vw, 100px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--color-dark);
+    margin: 0 0 10px 0;
+    line-height: 0.9;
+}
+
+.cases__block--products .cases__title {
+    color: var(--color-white);
+}
+
+.cases__subtitle {
+    font-family: var(--font-display);
+    font-size: 32px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+
+.cases__tags {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.cases__tag {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-gray);
+    padding: 8px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cases__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.cases__grid--products {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Case Card */
+.case-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.case-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.case-card--highlight {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+    border: 2px solid var(--color-accent);
+}
+
+.case-card--product {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.case-card--product:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-accent);
+}
+
+.case-card__number {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--color-accent);
+    opacity: 0.3;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    line-height: 1;
+}
+
+.case-card__title {
+    font-family: var(--font-body);
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-dark);
+    margin: 0 0 8px 0;
+    letter-spacing: 0.02em;
+}
+
+.case-card--product .case-card__title {
+    color: var(--color-white);
+}
+
+.case-card__type {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 5px;
+}
+
+.case-card__subtitle {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 20px;
+}
+
+.case-card--product .case-card__subtitle {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.case-card__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.case-card__list li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-dark);
+    opacity: 0.8;
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.case-card--product .case-card__list li {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.case-card__list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+}
+
+.case-card__result {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.case-card--product .case-card__result {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.result__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--color-gray);
+    letter-spacing: 0.1em;
+}
+
+.result__value {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--color-accent);
+    background: rgba(0, 255, 0, 0.1);
+    padding: 5px 15px;
+}
+
+.result__text {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+}
+
+/* Responsive Cases */
+@media (max-width: 1024px) {
+    .cases__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cases__grid--products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cases__title {
+        font-size: 56px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cases__block {
+        padding: 60px 20px;
+    }
+    
+    .cases__grid--products {
+        grid-template-columns: 1fr;
+    }
+    
+    .cases__title {
+        font-size: 48px;
+    }
+    
+    .cases__subtitle {
+        font-size: 24px;
+    }
+    
+    .case-card {
+        padding: 25px;
+    }
+    
+    .case-card__number {
+        font-size: 36px;
+    }
+    
+    .case-card__title {
+        font-size: 20px;
+    }
+}
+
+
+/* ============================================
+   CASES GLITCH EFFECTS - Динамичные глитч-эффекты
+   ============================================ */
+
+/* Контейнер для глитч-декора */
+.cases__glitch-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.cases__block {
+    position: relative;
+}
+
+.cases__header,
+.cases__grid {
+    position: relative;
+    z-index: 1;
+}
+
+/* Глитч-фигуры - цветные блоки */
+.cases__glitch-shape {
+    position: absolute;
+}
+
+/* Консалтинг блок - светлый фон - яркие глитч-объекты */
+.cases__glitch-shape--1 {
+    width: 300px;
+    height: 200px;
+    top: 8%;
+    left: -40px;
+    background: linear-gradient(
+        135deg,
+        rgba(200, 50, 60, 0.7) 0%,
+        rgba(150, 30, 40, 0.5) 50%,
+        transparent 100%
+    );
+    clip-path: polygon(0 0, 100% 15%, 85% 100%, 10% 85%);
+    animation: glitchFloat1 6s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+.cases__glitch-shape--2 {
+    width: 250px;
+    height: 180px;
+    top: 30%;
+    right: -30px;
+    background: linear-gradient(
+        -45deg,
+        rgba(180, 40, 50, 0.65) 0%,
+        rgba(120, 20, 30, 0.4) 60%,
+        transparent 100%
+    );
+    clip-path: polygon(15% 0, 100% 10%, 90% 100%, 0 85%);
+    animation: glitchFloat2 5s ease-in-out infinite;
+    opacity: 0.55;
+}
+
+.cases__glitch-shape--3 {
+    width: 180px;
+    height: 120px;
+    bottom: 15%;
+    left: 30%;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 255, 0, 0.4) 0%,
+        rgba(0, 200, 0, 0.2) 100%
+    );
+    clip-path: polygon(5% 0, 100% 20%, 95% 100%, 0 80%);
+    animation: glitchFloat3 7s ease-in-out infinite;
+    opacity: 0.5;
+}
+
+/* Продуктовый блок - тёмный фон - яркие глитч-объекты */
+.cases__glitch-shape--4 {
+    width: 320px;
+    height: 220px;
+    top: 5%;
+    right: 10%;
+    background: linear-gradient(
+        120deg,
+        rgba(220, 60, 70, 0.75) 0%,
+        rgba(160, 40, 50, 0.5) 50%,
+        transparent 100%
+    );
+    clip-path: polygon(10% 0, 100% 20%, 90% 100%, 0 80%);
+    animation: glitchFloat4 5.5s ease-in-out infinite;
+    opacity: 0.65;
+}
+
+.cases__glitch-shape--5 {
+    width: 280px;
+    height: 200px;
+    bottom: 10%;
+    left: -50px;
+    background: linear-gradient(
+        -60deg,
+        rgba(180, 40, 50, 0.7) 0%,
+        rgba(130, 25, 35, 0.45) 55%,
+        transparent 100%
+    );
+    clip-path: polygon(20% 0, 100% 15%, 85% 100%, 0 90%);
+    animation: glitchFloat5 6.5s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+.cases__glitch-shape--6 {
+    width: 200px;
+    height: 150px;
+    top: 40%;
+    left: 40%;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 255, 0, 0.5) 0%,
+        rgba(0, 200, 0, 0.25) 100%
+    );
+    clip-path: polygon(0 10%, 100% 0, 95% 100%, 5% 90%);
+    animation: glitchFloat6 4s ease-in-out infinite;
+    opacity: 0.55;
+}
+
+/* Глитч-линии - горизонтальные полосы помех */
+.cases__glitch-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(180, 40, 50, 0.6) 20%,
+        rgba(120, 20, 30, 0.8) 40%,
+        var(--color-accent) 60%,
+        rgba(150, 30, 40, 0.5) 80%,
+        transparent 100%
+    );
+    opacity: 0;
+    animation: glitchLineAppear 5s ease-in-out infinite;
+}
+
+.cases__glitch-line--1 {
+    top: 25%;
+    animation-delay: 0s;
+}
+
+.cases__glitch-line--2 {
+    top: 55%;
+    animation-delay: 1.5s;
+}
+
+.cases__glitch-line--3 {
+    top: 80%;
+    animation-delay: 3s;
+}
+
+.cases__glitch-line--4 {
+    top: 30%;
+    animation-delay: 0.5s;
+}
+
+.cases__glitch-line--5 {
+    top: 70%;
+    animation-delay: 2s;
+}
+
+/* Анимации для глитч-фигур - динамичные и заметные */
+@keyframes glitchFloat1 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) skewX(0deg);
+        opacity: 0.5;
+    }
+    15% {
+        transform: translate(40px, -30px) rotate(3deg) skewX(8deg);
+        opacity: 0.7;
+    }
+    30% {
+        transform: translate(-10px, 20px) rotate(-2deg) skewX(-4deg);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translate(25px, 40px) rotate(1deg) skewX(6deg);
+        opacity: 0.65;
+    }
+    70% {
+        transform: translate(-30px, -15px) rotate(-3deg) skewX(-5deg);
+        opacity: 0.45;
+    }
+    85% {
+        transform: translate(15px, 10px) rotate(2deg) skewX(3deg);
+        opacity: 0.6;
+    }
+}
+
+@keyframes glitchFloat2 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.45;
+    }
+    20% {
+        transform: translate(-35px, 25px) rotate(-4deg) scale(1.15);
+        opacity: 0.65;
+    }
+    45% {
+        transform: translate(30px, -35px) rotate(3deg) scale(0.9);
+        opacity: 0.35;
+    }
+    70% {
+        transform: translate(-20px, 15px) rotate(-2deg) scale(1.1);
+        opacity: 0.55;
+    }
+}
+
+@keyframes glitchFloat3 {
+    0%, 100% {
+        transform: translate(0, 0) skewY(0deg) scale(1);
+        opacity: 0.4;
+    }
+    25% {
+        transform: translate(50px, -20px) skewY(5deg) scale(1.1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-25px, 30px) skewY(-3deg) scale(0.95);
+        opacity: 0.35;
+    }
+    75% {
+        transform: translate(35px, 10px) skewY(2deg) scale(1.05);
+        opacity: 0.55;
+    }
+}
+
+@keyframes glitchFloat4 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) skewX(0deg);
+        opacity: 0.55;
+    }
+    25% {
+        transform: translate(-50px, 30px) rotate(-3deg) skewX(-6deg);
+        opacity: 0.75;
+    }
+    50% {
+        transform: translate(40px, -40px) rotate(4deg) skewX(5deg);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translate(-25px, 20px) rotate(-2deg) skewX(-3deg);
+        opacity: 0.65;
+    }
+}
+
+@keyframes glitchFloat5 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1) skewX(0deg);
+        opacity: 0.5;
+    }
+    20% {
+        transform: translate(45px, -25px) scale(1.1) skewX(6deg);
+        opacity: 0.7;
+    }
+    40% {
+        transform: translate(-30px, 35px) scale(0.95) skewX(-4deg);
+        opacity: 0.35;
+    }
+    60% {
+        transform: translate(20px, -15px) scale(1.05) skewX(3deg);
+        opacity: 0.6;
+    }
+    80% {
+        transform: translate(-15px, 25px) scale(0.98) skewX(-2deg);
+        opacity: 0.45;
+    }
+}
+
+@keyframes glitchFloat6 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.45;
+    }
+    30% {
+        transform: translate(-60px, 40px) rotate(6deg) scale(1.15);
+        opacity: 0.65;
+    }
+    60% {
+        transform: translate(45px, -25px) rotate(-4deg) scale(0.9);
+        opacity: 0.35;
+    }
+}
+
+/* Анимация появления глитч-линий */
+@keyframes glitchLineAppear {
+    0%, 85%, 100% {
+        opacity: 0;
+        transform: scaleX(0) translateX(-50%);
+    }
+    88% {
+        opacity: 0.8;
+        transform: scaleX(0.3) translateX(0);
+    }
+    90% {
+        opacity: 0.6;
+        transform: scaleX(1) translateX(10%);
+    }
+    92% {
+        opacity: 0.9;
+        transform: scaleX(0.5) translateX(-20%);
+    }
+    95% {
+        opacity: 0.4;
+        transform: scaleX(0.8) translateX(5%);
+    }
+}
+
+/* Дополнительный эффект мерцания для карточек при наведении */
+.case-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 255, 0, 0.03) 50%,
+        transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.case-card:hover::before {
+    opacity: 1;
+    animation: cardGlitch 0.5s ease-in-out;
+}
+
+@keyframes cardGlitch {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-5px);
+    }
+    40% {
+        transform: translateX(5px);
+    }
+    60% {
+        transform: translateX(-3px);
+    }
+    80% {
+        transform: translateX(3px);
+    }
+}
+
+/* Скрываем глитч-эффекты на мобильных для производительности */
+@media (max-width: 768px) {
+    .cases__glitch-shape {
+        display: none;
+    }
+    
+    .cases__glitch-line {
+        height: 2px;
+    }
+}
+
+/* ============================================
+   STRENGTH SECTION - Моя сила
+   ============================================ */
+.strength {
+    padding: 120px var(--section-padding);
+    background-color: var(--color-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.strength__container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: var(--grid-left) var(--grid-right);
+    gap: var(--grid-gap);
+    align-items: start;
+}
+
+/* Левая часть - декор */
+.strength__left {
+    position: relative;
+    min-height: 200px;
+}
+
+.strength__cross {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 30px;
+    height: 30px;
+}
+
+.strength__cross .cross__horizontal,
+.strength__cross .cross__vertical {
+    position: absolute;
+    background: var(--color-gray);
+}
+
+.strength__cross .cross__horizontal {
+    width: 100%;
+    height: 1px;
+    top: 50%;
+}
+
+.strength__cross .cross__vertical {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+}
+
+/* Глитч-декор */
+.strength__glitch-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.strength__glitch-shape {
+    position: absolute;
+    background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.15),
+        rgba(57, 255, 20, 0.1)
+    );
+    clip-path: polygon(10% 0%, 100% 5%, 90% 100%, 0% 95%);
+    animation: strengthGlitch1 6s ease-in-out infinite;
+}
+
+.strength__glitch-shape--1 {
+    width: 200px;
+    height: 100px;
+    top: 20%;
+    left: 10%;
+    opacity: 0.6;
+}
+
+.strength__glitch-shape--2 {
+    width: 150px;
+    height: 80px;
+    bottom: 30%;
+    left: 5%;
+    opacity: 0.4;
+    animation: strengthGlitch2 8s ease-in-out infinite;
+    background: linear-gradient(
+        135deg,
+        rgba(200, 30, 30, 0.2),
+        rgba(57, 255, 20, 0.1)
+    );
+}
+
+@keyframes strengthGlitch1 {
+    0%, 100% { transform: translate(0, 0) skewX(0deg); opacity: 0.6; }
+    25% { transform: translate(10px, -5px) skewX(2deg); opacity: 0.4; }
+    50% { transform: translate(-5px, 10px) skewX(-1deg); opacity: 0.7; }
+    75% { transform: translate(8px, 5px) skewX(1deg); opacity: 0.5; }
+}
+
+@keyframes strengthGlitch2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
+    33% { transform: translate(-8px, 8px) rotate(2deg); opacity: 0.6; }
+    66% { transform: translate(5px, -5px) rotate(-1deg); opacity: 0.3; }
+}
+
+/* Правая часть - контент */
+.strength__content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.strength__title {
+    font-family: var(--font-body);
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+}
+
+.strength__text-block {
+    max-width: 100%;
+}
+
+.strength__text {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Подзаголовок */
+.strength__subtitle {
+    margin-top: 8px;
+}
+
+.strength__subtitle-text {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Буллиты */
+.strength__bullets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 40px;
+}
+
+.strength__bullet {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.strength__bullet:hover {
+    border-bottom-color: var(--color-accent);
+    padding-left: 8px;
+}
+
+.strength__bullet-arrow {
+    font-size: 18px;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    font-weight: 700;
+}
+
+.strength__bullet-text {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.3;
+}
+
+/* Терминал */
+.strength__terminal {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--color-gray);
+    margin-top: 16px;
+}
+
+.strength__terminal .terminal__prompt {
+    display: block;
+    color: var(--color-gray);
+}
+
+.strength__terminal .terminal__line {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.strength__terminal .terminal__cursor {
+    animation: blink 1s infinite;
+    color: var(--color-accent);
+}
+
+/* Адаптив для планшетов */
+@media (max-width: 1024px) {
+    .strength__container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .strength__left {
+        display: none;
+    }
+    
+    .strength__title {
+        font-size: 40px;
+    }
+    
+    .strength__text {
+        font-size: 20px;
+    }
+    
+    .strength__bullets {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .strength {
+        padding: 80px 16px;
+    }
+    
+    .strength__title {
+        font-size: 32px;
+    }
+    
+    .strength__text {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+    
+    .strength__subtitle-text {
+        font-size: 16px;
+    }
+    
+    .strength__bullet-text {
+        font-size: 16px;
+    }
+    
+    .strength__bullets {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .strength__bullet {
+        padding: 10px 0;
+    }
+}
+

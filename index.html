@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="x9IUlZt-P3_y-FMjSWGEfoLqw23lVJNeAgJu95yqfCg" />
+    
+    <!-- SEO Meta Tags -->
+    <title>Бизнес-консультант Анастасия Базуева | Консультации по развитию бизнеса онлайн</title>
+    <meta name="description" content="Бизнес-консультант с опытом в Silicon Valley. Аудит бизнеса, стратегия роста, увеличение прибыли. Консультации онлайн: анализ метрик, воронки продаж, план действий. От $300 за сессию.">
+    <meta name="keywords" content="бизнес консультант, консультация онлайн бизнеса, как увеличить прибыль, рост бизнеса, аудит бизнеса, стратегия развития бизнеса, бизнес консалтинг, увеличение продаж, воронка продаж, бизнес стратег, консультант по бизнесу онлайн">
+    <meta name="author" content="Анастасия Базуева">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bazuevaconasulting.netlify.app/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bazuevaconasulting.netlify.app/">
+    <meta property="og:title" content="Бизнес-консультант Анастасия Базуева | Стратегия роста вашего бизнеса">
+    <meta property="og:description" content="Аудит бизнеса и стратегия развития от консультанта с опытом в Silicon Valley. Консультации онлайн от $300.">
+    <meta property="og:image" content="https://bazuevaconasulting.netlify.app/photo.png">
+    <meta property="og:locale" content="ru_RU">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://bazuevaconasulting.netlify.app/">
+    <meta name="twitter:title" content="Бизнес-консультант Анастасия Базуева | Стратегия роста вашего бизнеса">
+    <meta name="twitter:description" content="Аудит бизнеса и стратегия развития от консультанта с опытом в Silicon Valley. Консультации онлайн от $300.">
+    <meta name="twitter:image" content="https://bazuevaconasulting.netlify.app/photo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Анастасия Базуева - Бизнес Консалтинг",
+        "description": "Бизнес-консультант с опытом в Silicon Valley. Аудит бизнеса, стратегия роста, увеличение прибыли.",
+        "url": "https://bazuevaconasulting.netlify.app/",
+        "image": "https://bazuevaconasulting.netlify.app/photo.png",
+        "priceRange": "$300-$400",
+        "serviceType": ["Бизнес-консультации", "Аудит бизнеса", "Стратегия развития"],
+        "founder": {
+            "@type": "Person",
+            "name": "Анастасия Базуева",
+            "jobTitle": "Бизнес-консультант",
+            "sameAs": "https://t.me/nastyabazueva"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Услуги консалтинга",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "Консультация-аудит",
+                    "description": "Аудит текущей системы и метрик, стратегия развития",
+                    "price": "300",
+                    "priceCurrency": "USD"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Подписка на звонки",
+                    "description": "Part-time партнёр-стратег в вашу команду",
+                    "price": "400",
+                    "priceCurrency": "USD"
+                }
+            ]
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Глобальные глитч-эффекты -->
+    <div class="glitch-lines"></div>
+    <div class="glitch-bar glitch-bar--1"></div>
+    <div class="glitch-bar glitch-bar--2"></div>
+    <div class="glitch-bar glitch-bar--3"></div>
+    
+    <!-- Canvas для эффекта шума -->
+    <canvas id="noise-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header__container">
+            <div class="header__logo">
+                <a href="#" class="header__logo-link">
+                    <span class="header__icon">◎</span>
+                </a>
+            </div>
+            
+            <nav class="header__nav">
+                <a href="#about" class="nav__link">ОБО МНЕ</a>
+                <a href="#formats" class="nav__link">ФОРМАТЫ</a>
+                <a href="#cases" class="nav__link">КЕЙСЫ</a>
+                <a href="#problems" class="nav__link">С ЧЕМ ПРИХОДЯТ</a>
+                <a href="#implementation" class="nav__link">ВНЕДРЕНИЕ</a>
+            </nav>
+            
+            <button class="header__sound-btn">
+                <span class="sound-icon">🔇</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Floating Side Labels -->
+    <div class="floating-label floating-label--left">
+        <a href="#" class="floating-label__link">
+            <span class="floating-label__box">ANASTASIA BAZUEVA</span>
+        </a>
+        <span class="floating-label__ticker">| | | | | | | | | | | |</span>
+    </div>
+    
+    <div class="floating-label floating-label--right">
+        <a href="#" class="floating-label__link">
+            <span class="floating-label__icon">◎</span>
+            <span class="floating-label__text">CONSULTING</span>
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__container">
+            <!-- Левая часть - Глитч-элементы -->
+            <div class="hero__left">
+                <div class="hero__brand">
+                    <span class="brand__name">A N A S T A S I A&nbsp;&nbsp;B A Z U E V A</span>
+                    <span class="brand__ticker">| | | | | | | | | | | |</span>
+                </div>
+                
+                <!-- Декоративный крест -->
+                <div class="hero__cross">
+                    <span class="cross__horizontal"></span>
+                    <span class="cross__vertical"></span>
+                </div>
+                
+                <!-- Фото с глитч-эффектом -->
+                <div class="hero__photo-container">
+                    <div class="hero__photo-glitch">
+                        <img src="photo.png" alt="Anastasia Bazueva" class="hero__photo hero__photo--main">
+                        <img src="photo.png" alt="" class="hero__photo hero__photo--r" aria-hidden="true">
+                        <img src="photo.png" alt="" class="hero__photo hero__photo--g" aria-hidden="true">
+                        <img src="photo.png" alt="" class="hero__photo hero__photo--b" aria-hidden="true">
+                    </div>
+                    <div class="hero__photo-scanlines"></div>
+                    <div class="hero__photo-noise"></div>
+                </div>
+                
+                <!-- Глитч-декоративные элементы -->
+                <div class="glitch-decor">
+                    <div class="glitch-decor__shape glitch-decor__shape--1"></div>
+                    <div class="glitch-decor__shape glitch-decor__shape--2"></div>
+                    <div class="glitch-decor__lines">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Правая часть с текстом -->
+            <div class="hero__content">
+                <div class="hero__title-wrapper">
+                    <h1 class="hero__title">Business Consulting</h1>
+                </div>
+                
+                <div class="hero__description">
+                    <p class="hero__text">
+                        Если вы не знаете за что взяться, чтобы ваш бизнес рос — я проведу аудит и соберу стратегию развития.
+                    </p>
+                </div>
+                
+                <div class="hero__terminal">
+                    <span class="terminal__prompt">.</span>
+                    <span class="terminal__line">>аудит → стратегия</span>
+                    <span class="terminal__line">>→ план действий.</span>
+                    <span class="terminal__cursor">❙︎</span>
+                </div>
+                
+                <div class="hero__meta">
+                    <div class="meta__tape">
+                        <span class="tape__label">tape</span>
+                        <span class="tape__rec">●rec</span>
+                        <span class="tape__time">0:01:30</span>
+                    </div>
+                    <div class="meta__price">
+                        <span class="price__duration">90 минут</span>
+                        <span class="price__separator">•</span>
+                        <span class="price__amount">$300</span>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="hero__cta">
+                    <span class="cta__text">НАПИСАТЬ МНЕ</span>
+                </a>
+                
+                <!-- График роста маржи с глитч-элементами -->
+                <div class="hero__chart-wrapper">
+                    <!-- Крестики -->
+                    <div class="chart__cross chart__cross--1">
+                        <span class="cross__h"></span>
+                        <span class="cross__v"></span>
+                    </div>
+                    <div class="chart__cross chart__cross--2">
+                        <span class="cross__h"></span>
+                        <span class="cross__v"></span>
+                    </div>
+                    <div class="chart__cross chart__cross--3">
+                        <span class="cross__h"></span>
+                        <span class="cross__v"></span>
+                    </div>
+                    
+                    <!-- Глитч-блоки -->
+                    <div class="chart__glitch chart__glitch--1"></div>
+                    <div class="chart__glitch chart__glitch--2"></div>
+                    <div class="chart__glitch chart__glitch--3"></div>
+                    
+                    <!-- График -->
+                    <div class="hero__chart">
+                        <svg class="chart__svg" viewBox="0 0 300 150" preserveAspectRatio="none">
+                            <!-- Сетка -->
+                            <line class="chart__grid-line" x1="0" y1="30" x2="300" y2="30"/>
+                            <line class="chart__grid-line" x1="0" y1="60" x2="300" y2="60"/>
+                            <line class="chart__grid-line" x1="0" y1="90" x2="300" y2="90"/>
+                            <line class="chart__grid-line" x1="0" y1="120" x2="300" y2="120"/>
+                            
+                            <!-- Основная линия графика -->
+                            <path class="chart__line chart__line--main" d="M0,140 Q30,130 60,125 T120,100 T180,70 T240,40 T300,10" fill="none"/>
+                            
+                            <!-- Глитч-линии -->
+                            <path class="chart__line chart__line--glitch1" d="M0,140 Q30,130 60,125 T120,100 T180,70 T240,40 T300,10" fill="none"/>
+                            <path class="chart__line chart__line--glitch2" d="M0,140 Q30,130 60,125 T120,100 T180,70 T240,40 T300,10" fill="none"/>
+                            
+                            <!-- Заливка под графиком -->
+                            <path class="chart__area" d="M0,140 Q30,130 60,125 T120,100 T180,70 T240,40 T300,10 L300,150 L0,150 Z"/>
+                            
+                            <!-- Точки -->
+                            <circle class="chart__dot" cx="60" cy="125" r="4"/>
+                            <circle class="chart__dot" cx="120" cy="100" r="4"/>
+                            <circle class="chart__dot" cx="180" cy="70" r="4"/>
+                            <circle class="chart__dot" cx="240" cy="40" r="4"/>
+                            <circle class="chart__dot" cx="300" cy="10" r="4"/>
+                        </svg>
+                        <div class="chart__label">
+                            <span class="chart__label-text">margin growth</span>
+                            <span class="chart__label-value">+47%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Дополнительные глитч-полосы -->
+                    <div class="chart__scanline chart__scanline--1"></div>
+                    <div class="chart__scanline chart__scanline--2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about__container">
+            <!-- Левая часть - с глитч-элементами -->
+            <div class="about__left">
+                <div class="about__glitch-decor">
+                    <div class="about__glitch-shape about__glitch-shape--1"></div>
+                    <div class="about__glitch-shape about__glitch-shape--2"></div>
+                </div>
+                <div class="about__cross">
+                    <span class="cross__horizontal"></span>
+                    <span class="cross__vertical"></span>
+                </div>
+            </div>
+            
+            <!-- Правая часть - весь контент -->
+            <div class="about__content">
+                <h2 class="about__title">About</h2>
+                
+                <div class="about__text-block">
+                    <p class="about__text">
+                        5 лет в Silicon Valley, сфера startups, investors, B2B Solutions, Public sector. Сейчас партнер в бизнесе по онлайн обучению. В прошлом агентство дизайна и визуала.
+                    </p>
+                </div>
+                
+                <div class="about__terminal">
+                    <span class="terminal__prompt">.</span>
+                    <span class="terminal__line">>startups • investors • B2B</span>
+                    <span class="terminal__line">>Public sector • online education</span>
+                    <span class="terminal__cursor">❚︎</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Strength Section -->
+    <section id="strength" class="strength">
+        <div class="strength__container">
+            <!-- Левая часть - декор -->
+            <div class="strength__left">
+                <div class="strength__glitch-decor">
+                    <div class="strength__glitch-shape strength__glitch-shape--1"></div>
+                    <div class="strength__glitch-shape strength__glitch-shape--2"></div>
+                </div>
+                <div class="strength__cross">
+                    <span class="cross__horizontal"></span>
+                    <span class="cross__vertical"></span>
+                </div>
+            </div>
+            
+            <!-- Правая часть - контент -->
+            <div class="strength__content">
+                <h2 class="strength__title">Моя сила — в комплексном взгляде на бизнес</h2>
+                
+                <div class="strength__text-block">
+                    <p class="strength__text">
+                        У меня большой опыт на стыке маркетинга, продаж, сайтов, AI и управления командой.
+                        Поэтому я не смотрю на проблему точечно — я вижу бизнес как систему и могу быстро понять, что именно мешает росту.
+                    </p>
+                </div>
+                
+                <div class="strength__subtitle">
+                    <span class="strength__subtitle-text">Это позволяет мне находить:</span>
+                </div>
+                
+                <div class="strength__bullets">
+                    <div class="strength__bullet">
+                        <span class="strength__bullet-arrow">&rarr;</span>
+                        <span class="strength__bullet-text">где теряется конверсия</span>
+                    </div>
+                    <div class="strength__bullet">
+                        <span class="strength__bullet-arrow">&rarr;</span>
+                        <span class="strength__bullet-text">почему не цепляет оффер</span>
+                    </div>
+                    <div class="strength__bullet">
+                        <span class="strength__bullet-arrow">&rarr;</span>
+                        <span class="strength__bullet-text">почему сайт не продаёт</span>
+                    </div>
+                    <div class="strength__bullet">
+                        <span class="strength__bullet-arrow">&rarr;</span>
+                        <span class="strength__bullet-text">где ломаются продажи</span>
+                    </div>
+                    <div class="strength__bullet">
+                        <span class="strength__bullet-arrow">&rarr;</span>
+                        <span class="strength__bullet-text">какие процессы тормозят рост</span>
+                    </div>
+                    <div class="strength__bullet">
+                        <span class="strength__bullet-arrow">&rarr;</span>
+                        <span class="strength__bullet-text">где AI может ускорить результат</span>
+                    </div>
+                </div>
+                
+                <div class="strength__terminal">
+                    <span class="terminal__prompt">.</span>
+                    <span class="terminal__line">&gt;маркетинг &bull; продажи &bull; AI</span>
+                    <span class="terminal__line">&gt;система &bull; рост &bull; результат</span>
+                    <span class="terminal__cursor">&#10074;&#xFE0E;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formats Section -->
+    <section id="formats" class="formats">
+        <!-- Большой заголовок SERVICE -->
+        <div class="formats__header">
+            <h2 class="formats__title">SERVICE</h2>
+            <div class="formats__ticker">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+        
+        <!-- Карточки услуг -->
+        <div class="formats__container">
+            <div class="formats__grid">
+                <!-- Карточка 01 -->
+                <div class="format-card">
+                    <div class="format-card__visual">
+                        <div class="format-card__splatter"></div>
+                        <div class="format-card__icon">
+                            <!-- Иконка видеозвонка/консультации -->
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="18" width="44" height="34" rx="4" stroke="#39FF14" stroke-width="2"/>
+                                <path d="M52 28L68 20V50L52 42V28Z" stroke="#39FF14" stroke-width="2"/>
+                                <circle cx="30" cy="35" r="8" stroke="#39FF14" stroke-width="2"/>
+                                <path d="M22 48C22 44 26 42 30 42C34 42 38 44 38 48" stroke="#39FF14" stroke-width="2"/>
+                                <line x1="14" y1="58" x2="46" y2="58" stroke="#39FF14" stroke-width="2" stroke-dasharray="4 2"/>
+                                <circle cx="62" cy="58" r="4" stroke="#8B5CF6" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="format-card__content">
+                        <div class="format-card__number">01</div>
+                        <h3 class="format-card__title-big">Консультация-аудит</h3>
+                        <div class="format-card__price">$300 • 90 минут</div>
+                        <p class="format-card__desc">Аудит текущей системы и метрик, стратегия развития и "план действий" для роста бизнеса</p>
+                        <a href="#contact" class="format-card__cta">НАПИСАТЬ МНЕ</a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 02 -->
+                <div class="format-card">
+                    <div class="format-card__visual">
+                        <div class="format-card__splatter format-card__splatter--2"></div>
+                        <div class="format-card__icon">
+                            <!-- Иконка чата/сообщений -->
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="12" width="36" height="28" rx="4" stroke="#39FF14" stroke-width="2"/>
+                                <path d="M10 36L18 44V36" stroke="#39FF14" stroke-width="2"/>
+                                <line x1="18" y1="22" x2="38" y2="22" stroke="#39FF14" stroke-width="2"/>
+                                <line x1="18" y1="28" x2="32" y2="28" stroke="#39FF14" stroke-width="2"/>
+                                <rect x="34" y="32" width="36" height="28" rx="4" stroke="#EC4899" stroke-width="2"/>
+                                <path d="M70 56L62 64V56" stroke="#EC4899" stroke-width="2"/>
+                                <line x1="42" y1="42" x2="62" y2="42" stroke="#EC4899" stroke-width="2"/>
+                                <line x1="42" y1="48" x2="56" y2="48" stroke="#EC4899" stroke-width="2"/>
+                                <circle cx="26" cy="58" r="6" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="3 2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="format-card__content">
+                        <div class="format-card__number">02</div>
+                        <h3 class="format-card__title-big">Поддержка в сообщениях</h3>
+                        <div class="format-card__price">1 месяц</div>
+                        <p class="format-card__desc">Вопросы по бизнесу, проверка гипотез, решения по ситуации. Пределы и формат согласуем лично</p>
+                        <a href="#contact" class="format-card__cta">НАПИСАТЬ МНЕ</a>
+                    </div>
+                </div>
+                
+                <!-- Карточка 03 -->
+                <div class="format-card">
+                    <div class="format-card__visual">
+                        <div class="format-card__splatter format-card__splatter--3"></div>
+                        <div class="format-card__icon">
+                            <!-- Иконка звонков/календаря -->
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="14" y="18" width="52" height="48" rx="4" stroke="#39FF14" stroke-width="2"/>
+                                <line x1="14" y1="30" x2="66" y2="30" stroke="#39FF14" stroke-width="2"/>
+                                <line x1="26" y1="12" x2="26" y2="22" stroke="#39FF14" stroke-width="2"/>
+                                <line x1="54" y1="12" x2="54" y2="22" stroke="#39FF14" stroke-width="2"/>
+                                <circle cx="30" cy="44" r="6" stroke="#EC4899" stroke-width="2"/>
+                                <circle cx="50" cy="44" r="6" stroke="#8B5CF6" stroke-width="2"/>
+                                <circle cx="40" cy="56" r="6" stroke="#39FF14" stroke-width="2"/>
+                                <path d="M30 44L33 47L37 41" stroke="#EC4899" stroke-width="1.5"/>
+                                <path d="M50 44L53 47L57 41" stroke="#8B5CF6" stroke-width="1.5"/>
+                                <path d="M40 56L43 59L47 53" stroke="#39FF14" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="format-card__content">
+                        <div class="format-card__number">03</div>
+                        <h3 class="format-card__title-big">Подписка на звонки</h3>
+                        <div class="format-card__price">$400 • 3 звонка/месяц</div>
+                        <p class="format-card__desc">Part-time партнёр-стратег в вашу команду: решения, приоритеты, контроль внедрения</p>
+                        <a href="#contact" class="format-card__cta">НАПИСАТЬ МНЕ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кейсы Section -->
+    <section id="cases" class="cases">
+        <!-- Кейсы консалтинга -->
+        <div class="cases__block cases__block--consulting">
+            <!-- Глитч-декор для консалтинга -->
+            <div class="cases__glitch-decor">
+                <div class="cases__glitch-shape cases__glitch-shape--1"></div>
+                <div class="cases__glitch-shape cases__glitch-shape--2"></div>
+                <div class="cases__glitch-shape cases__glitch-shape--3"></div>
+                <div class="cases__glitch-line cases__glitch-line--1"></div>
+                <div class="cases__glitch-line cases__glitch-line--2"></div>
+                <div class="cases__glitch-line cases__glitch-line--3"></div>
+            </div>
+            <div class="cases__header">
+                <h2 class="cases__title">Кейсы</h2>
+                <div class="cases__subtitle">консалтинг</div>
+                <div class="cases__tags">
+                    <span class="cases__tag">онлайн бизнес</span>
+                    <span class="cases__tag">агентства</span>
+                    <span class="cases__tag">эксперты</span>
+                </div>
+            </div>
+            
+            <div class="cases__grid">
+                <!-- Кейс 1 -->
+                <div class="case-card">
+                    <div class="case-card__number">01</div>
+                    <h3 class="case-card__title">Маркетинговое агентство</h3>
+                    <div class="case-card__subtitle">систематизация операционки + рост заявок</div>
+                    <ul class="case-card__list">
+                        <li>навели порядок в процессах/ролях</li>
+                        <li>добавили Telegram Ads + контент-маркетинг</li>
+                        <li>внедрили систему рекомендаций (прогрессивная сарафанка)</li>
+                    </ul>
+                </div>
+                
+                <!-- Кейс 2 -->
+                <div class="case-card">
+                    <div class="case-card__number">02</div>
+                    <h3 class="case-card__title">Лидогенерация на Авито</h3>
+                    <div class="case-card__subtitle">заявки мастерам по всей России</div>
+                    <ul class="case-card__list">
+                        <li>"трафик есть — заявок нет" → аудит воронки</li>
+                        <li>переработка сайта/упаковки + контроль лидов</li>
+                        <li>реклама начала конвертироваться</li>
+                    </ul>
+                </div>
+                
+                <!-- Кейс 3 -->
+                <div class="case-card case-card--highlight">
+                    <div class="case-card__number">03</div>
+                    <h3 class="case-card__title">Онлайн-обучение</h3>
+                    <div class="case-card__subtitle">рост прибыли и конверсии за счёт системы</div>
+                    <ul class="case-card__list">
+                        <li>пересборка сайта, воронки и стратегии Telegram</li>
+                        <li>регламенты и операционка + усиление команды</li>
+                    </ul>
+                    <div class="case-card__result">
+                        <span class="result__label">результат:</span>
+                        <span class="result__value">прибыль ×5</span>
+                        <span class="result__value">конверсия ×9</span>
+                    </div>
+                </div>
+                
+                <!-- Кейс 4 -->
+                <div class="case-card">
+                    <div class="case-card__number">04</div>
+                    <h3 class="case-card__title">Reels Production</h3>
+                    <div class="case-card__subtitle">больше заявок + скорость через AI</div>
+                    <ul class="case-card__list">
+                        <li>аудит сайта и пути клиента</li>
+                        <li>внедрение AI-процессов и обучение владельца</li>
+                        <li>ускорили производство, выросло качество</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Кейсы в продуктах -->
+        <div class="cases__block cases__block--products">
+            <!-- Глитч-декор для продуктов -->
+            <div class="cases__glitch-decor cases__glitch-decor--dark">
+                <div class="cases__glitch-shape cases__glitch-shape--4"></div>
+                <div class="cases__glitch-shape cases__glitch-shape--5"></div>
+                <div class="cases__glitch-shape cases__glitch-shape--6"></div>
+                <div class="cases__glitch-line cases__glitch-line--4"></div>
+                <div class="cases__glitch-line cases__glitch-line--5"></div>
+            </div>
+            <div class="cases__header">
+                <div class="cases__subtitle">кейсы в продуктах</div>
+            </div>
+            
+            <div class="cases__grid cases__grid--products">
+                <!-- Продукт 1 -->
+                <div class="case-card case-card--product">
+                    <div class="case-card__number">01</div>
+                    <h3 class="case-card__title">GIMME MORE</h3>
+                    <div class="case-card__type">Агентство дизайна и визуала</div>
+                    <div class="case-card__subtitle">свой продукт/компания</div>
+                    <ul class="case-card__list">
+                        <li>построила продуктовую линейку услуг</li>
+                        <li>выстроила процессы "бриф → концепт → производство → сдача"</li>
+                        <li>делала упаковку, которая конвертит</li>
+                    </ul>
+                    <div class="case-card__result">
+                        <span class="result__text">проект работал как система: стабильные продажи + монетизация через блог</span>
+                    </div>
+                </div>
+                
+                <!-- Продукт 2 -->
+                <div class="case-card case-card--product">
+                    <div class="case-card__number">02</div>
+                    <h3 class="case-card__title">B2B-платформа</h3>
+                    <div class="case-card__type">США</div>
+                    <div class="case-card__subtitle">продукт как система, а не набор фич</div>
+                    <ul class="case-card__list">
+                        <li>проектировала логику продукта и сценарии</li>
+                        <li>ставила приоритеты и "приземляла" идеи в план</li>
+                        <li>связывала продукт/маркетинг/разработку</li>
+                    </ul>
+                </div>
+                
+                <!-- Продукт 3 -->
+                <div class="case-card case-card--product">
+                    <div class="case-card__number">03</div>
+                    <h3 class="case-card__title">Pitch-платформа</h3>
+                    <div class="case-card__type">США • для инвесторов</div>
+                    <div class="case-card__subtitle">онлайн-шоукейс проектов</div>
+                    <ul class="case-card__list">
+                        <li>собрала путь пользователя как воронку</li>
+                        <li>продумала продукт, наладила взаимодействие команды</li>
+                        <li>работала с коммуникацией со стейкхолдерами</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- С чем приходят Section -->
+    <section id="problems" class="problems">
+        <div class="problems__container">
+            <div class="problems__left">
+                <h2 class="problems__title">С чем приходят</h2>
+                <div class="problems__cross">
+                    <span class="cross__horizontal"></span>
+                    <span class="cross__vertical"></span>
+                </div>
+            </div>
+            
+            <div class="problems__content">
+                <div class="problems__list">
+                    <div class="problem-item">
+                        <span class="problem-item__left">хочу рост бизнеса</span>
+                        <span class="problem-item__arrow">→</span>
+                        <span class="problem-item__right">не понимаю как</span>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-item__left">трафик есть</span>
+                        <span class="problem-item__arrow">→</span>
+                        <span class="problem-item__right">продаж нет</span>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-item__left">много действий</span>
+                        <span class="problem-item__arrow">→</span>
+                        <span class="problem-item__right">мало результата</span>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-item__left">я эксперт</span>
+                        <span class="problem-item__arrow">→</span>
+                        <span class="problem-item__right">но выстроить бизнес не знаю как</span>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-item__left">хочу улучшить</span>
+                        <span class="problem-item__arrow">→</span>
+                        <span class="problem-item__right">не понимаю, за что и как взяться</span>
+                    </div>
+                </div>
+                
+                <div class="problems__summary">
+                    <p class="problems__text">
+                        В итоге вы вкладываетесь — но деньги не доходят до кассы. Я нахожу эти точки и смотрю на ваш бизнес с разных сторон моего опыта.
+                    </p>
+                    <div class="problems__terminal">
+                        <span class="terminal__prompt">.</span>
+                        <span class="terminal__line">>Как итог - вы понимаете</span>
+                        <span class="terminal__line">>свой дальнейший план</span>
+                        <span class="terminal__line">>Step by Step</span>
+                        <span class="terminal__cursor">❚︎</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Внедрение Section -->
+    <section id="implementation" class="implementation">
+        <div class="implementation__container">
+            <div class="implementation__left">
+                <h2 class="implementation__title">Внедрение</h2>
+                <div class="implementation__glitch-decor">
+                    <div class="implementation__glitch-shape implementation__glitch-shape--1"></div>
+                    <div class="implementation__glitch-shape implementation__glitch-shape--2"></div>
+                </div>
+            </div>
+            
+            <div class="implementation__content">
+                <p class="implementation__text">
+                    Если у вас нет сайта/бота/автоматизации — можно не только разобрать что вам делать, но и сразу — сделать.
+                </p>
+                <p class="implementation__subtext">
+                    У меня есть своя команда и подрядчики, а я контролирую все эти процессы. Поэтому результат точно будет "как надо".
+                </p>
+                
+                <div class="implementation__terminal">
+                    <span class="terminal__prompt">.</span>
+                    <span class="terminal__line">>сайт • бот • автоматизация</span>
+                    <span class="terminal__line">>команда + контроль</span>
+                    <span class="terminal__cursor">❚︎</span>
+                </div>
+                
+                <a href="#contact" class="implementation__cta">НАПИСАТЬ МНЕ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакт Section -->
+    <section id="contact" class="contact">
+        <div class="contact__container">
+            <div class="contact__left">
+                <h2 class="contact__title">Обсудим ваш бизнес?</h2>
+                <div class="contact__glitch-decor">
+                    <div class="contact__glitch-shape contact__glitch-shape--1"></div>
+                    <div class="contact__glitch-shape contact__glitch-shape--2"></div>
+                    <div class="contact__glitch-shape contact__glitch-shape--3"></div>
+                </div>
+            </div>
+            
+            <div class="contact__content">
+                <form class="contact__form" id="contactForm">
+                    <div class="form__group">
+                        <label class="form__label" for="name">Имя</label>
+                        <input type="text" id="name" name="name" class="form__input" placeholder="Ваше имя" required>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="telegram">Телеграмм</label>
+                        <input type="text" id="telegram" name="telegram" class="form__input" placeholder="@username" required>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="goal">Главная цель/боль</label>
+                        <textarea id="goal" name="goal" class="form__textarea" placeholder="Опишите вашу ситуацию..." rows="4" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form__submit">ОТПРАВИТЬ</button>
+                </form>
+                
+                <div class="contact__terminal">
+                    <span class="terminal__prompt">.</span>
+                    <span class="terminal__line">>заявка • анализ • стратегия</span>
+                    <span class="terminal__cursor">❚︎</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
