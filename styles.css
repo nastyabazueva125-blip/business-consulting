@@ -1531,6 +1531,18 @@ body {
     flex: 1;
 }
 
+.format-card__note {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-accent);
+    opacity: 0.9;
+    margin: -16px 0 20px 0;
+    padding: 10px 12px;
+    border-left: 2px solid var(--color-accent);
+    background: rgba(57, 255, 20, 0.05);
+}
+
 .format-card__cta {
     display: inline-block;
     padding: 12px 24px;
