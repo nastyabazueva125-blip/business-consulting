@@ -13,6 +13,12 @@ from datetime import datetime
 from pathlib import Path
 
 try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+try:
     from telethon import TelegramClient
     from telethon.tl.types import (
         MessageMediaPhoto,

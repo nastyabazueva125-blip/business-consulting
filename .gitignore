@@ -1,0 +1,15 @@
+# Секреты — никогда не коммитить
+.env
+*.env
+photo-app/scraper/*.session
+photo-app/scraper/*.session-journal
+
+# Медиа и данные (тяжёлые файлы)
+photo-app/scraper/media/
+photo-app/scraper/data.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
