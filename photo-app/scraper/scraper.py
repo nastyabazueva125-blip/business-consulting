@@ -71,7 +71,7 @@ def slugify_topic(name: str) -> str:
     return name_lower.replace(" ", "_")[:30]
 
 
-def serialize_message(msg, topic_name: str, media_path: str | None) -> dict:
+def serialize_message(msg, topic_name: str, media_path) -> dict:
     return {
         "id":         msg.id,
         "topic":      topic_name,
