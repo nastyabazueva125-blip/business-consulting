@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, MenuButtonWebApp, BotCommand
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-load_dotenv(dotenv_path="scraper/.env")
+load_dotenv()  # на хостинге переменные задаются через dashboard, .env не нужен
 
 BOT_TOKEN    = os.getenv("BOT_TOKEN", "")
 MINI_APP_URL = os.getenv("MINI_APP_URL", "https://bazuevaconsult.com/photo-app/")
