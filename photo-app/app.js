@@ -19,11 +19,27 @@ tg.expand();
 // ─── НАВИГАЦИЯ ────────────────────────────────────────────────────────────────
 
 const stack = [];
+let currentTab = 'home';
 
 function navigate(screen, params) {
   stack.push({ screen, params: params ?? null });
   render(screen, params, 'forward');
   tg.BackButton[stack.length > 1 ? 'show' : 'hide']();
+}
+
+function tabNavigate(tab) {
+  currentTab = tab;
+  setActiveTab(tab);
+  stack.length = 0;
+  tg.HapticFeedback.impactOccurred('light');
+  const screenMap = { home: 'home', feed: 'feed', course: 'course' };
+  navigate(screenMap[tab] || 'home');
+}
+
+function setActiveTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tab);
+  });
 }
 
 function goBack() {
@@ -55,6 +71,7 @@ function render(screen, params, direction) {
 
   switch (screen) {
     case 'home':     el.innerHTML = screenHome(); break;
+    case 'feed':     el.innerHTML = screenFeed(); break;
     case 'category': el.innerHTML = screenCategory(params); break;
     case 'post':     el.innerHTML = screenPost(params); break;
     case 'course':   el.innerHTML = screenCourse(); break;
@@ -109,8 +126,6 @@ function init3D() {
 // ─── ГЛАВНАЯ ──────────────────────────────────────────────────────────────────
 
 function screenHome() {
-  const free = COURSE.lessons.filter(l => l.free).length;
-
   return `
     <div class="home-red">
       <!-- Баннер с названием -->
@@ -152,13 +167,48 @@ function screenHome() {
 
       <!-- Нижний бар с кнопкой -->
       <div class="bottom-bar">
-        <button class="tech-button" onclick="navigate('course')">
+        <button class="tech-button" onclick="tabNavigate('course')">
           <span class="br tl"></span><span class="br tr"></span>
           <span class="br bl"></span><span class="br br"></span>
           &gt;_VIEW_COURSE
         </button>
         <div class="version">V.1.0.0 · ${COURSE.lessons.length}LSN</div>
       </div>
+    </div>
+
+    <!-- Глитч-фото секция ниже -->
+    <div class="glitch-section">
+      <div class="glitch-photo">
+        <div class="glitch-scanlines"></div>
+        <div class="glitch-gradient"></div>
+        <div class="glitch-caption">
+          <span class="glitch-caption-name">РАЗДАЧА·СТИЛЯ</span>
+          <span class="glitch-caption-tag">&gt;_PHOTO.BLOG<br>© 2025—∞</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ─── КОНТЕНТ (ГРИД КАТЕГОРИЙ) ─────────────────────────────────────────────────
+
+function screenFeed() {
+  return `
+    <div class="page-header">
+      <div class="page-header-eyebrow">// контент</div>
+      <div class="page-header-title">КАТЕГОРИИ</div>
+      <div class="page-header-desc">Выбери раздел</div>
+    </div>
+    <div class="feed-grid">
+      ${CATEGORIES.map((cat, i) => `
+        <div class="feed-cat-card" onclick="navigate('category','${cat.id}')">
+          <div class="feed-cat-num">0${i + 1}</div>
+          <div class="feed-cat-emoji">${cat.emoji}</div>
+          <div class="feed-cat-name">${cat.name.toUpperCase()}</div>
+          <div class="feed-cat-desc">${cat.desc}</div>
+          <div class="feed-cat-count">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
+        </div>
+      `).join('')}
     </div>
   `;
 }

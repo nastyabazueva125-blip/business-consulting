@@ -22,6 +22,22 @@
   <div class="grain"></div>
 
   <div id="app"></div>
+
+  <div id="tab-bar" class="tab-bar">
+    <button class="tab-btn active" data-tab="home" onclick="tabNavigate('home')">
+      <span class="tab-icon">◈</span>
+      <span class="tab-label">ГЛАВНАЯ</span>
+    </button>
+    <button class="tab-btn" data-tab="feed" onclick="tabNavigate('feed')">
+      <span class="tab-icon">▦</span>
+      <span class="tab-label">КОНТЕНТ</span>
+    </button>
+    <button class="tab-btn" data-tab="course" onclick="tabNavigate('course')">
+      <span class="tab-icon">▷</span>
+      <span class="tab-label">КУРС</span>
+    </button>
+  </div>
+
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
