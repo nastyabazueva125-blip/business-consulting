@@ -37,7 +37,7 @@ function tabNavigate(tab) {
 }
 
 function setActiveTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(btn => {
+  document.querySelectorAll('.ptab').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === tab);
   });
 }
@@ -86,8 +86,6 @@ function render(screen, params, direction) {
 
   app.appendChild(el);
 
-  // Запускаем 3D эффект только на главной
-  if (screen === 'home') init3D();
 }
 
 // ─── 3D ЭФФЕКТ НА ФОТО ───────────────────────────────────────────────────────
@@ -136,86 +134,45 @@ function getCatIcon(catId) {
 }
 
 function screenHome() {
-  const totalPosts  = CATEGORIES.reduce((s, c) => s + c.posts.length, 0);
-  const freeLessons = COURSE.lessons.filter(l => l.free).length;
-
   return `
-    <div class="home-red">
-      <!-- Баннер -->
-      <div class="banner">
-        <div class="banner-tag">VER. 1.0</div>
-        <div class="banner-title">
-          <div><span class="fill">РАЗДАЧА</span></div>
-          <div><span class="outline">СТИЛЯ</span></div>
+    <!-- Hero фото -->
+    <div class="hero-section">
+      <img class="hero-img" src="hero.jpg" alt="">
+      <div class="hero-gradient"></div>
+      <div class="hero-header">
+        <div class="hero-title">
+          <span class="hero-fill">РАЗДАЧА</span>
+          <span class="hero-outline">СТИЛЯ</span>
         </div>
-      </div>
-
-      <!-- Editorial-сетка -->
-      <div class="editorial">
-        <!-- Левая колонка — статы -->
-        <div class="home-stats">
-          <div>
-            <div class="home-stat-num">0${CATEGORIES.length}</div>
-            <div class="home-stat-lbl">ТЕМЫ</div>
-          </div>
-          <div>
-            <div class="home-stat-num">${String(totalPosts).padStart(2, '0')}</div>
-            <div class="home-stat-lbl">ПОСТОВ</div>
-          </div>
-          <div>
-            <div class="home-stat-num">0${freeLessons}</div>
-            <div class="home-stat-lbl">FREE</div>
-          </div>
-        </div>
-
-        <!-- Правая колонка — фото -->
-        <div class="photo-cell">
-          <img class="photo-cutout" src="hero-cutout.png" alt="">
-        </div>
-
-        <!-- Иконка -->
-        <div class="icon-cell">
-          <div class="circle-icon"></div>
-        </div>
-
-        <!-- Описание -->
-        <div class="desc-cell">
-          Авторский блог про фотографию. Рецепты съёмки, обработка, видеоуроки и полный курс «Сам себе фотограф» — от нуля до уверенной работы с камерой.
-        </div>
-      </div>
-
-      <!-- Тайлы категорий -->
-      <div class="cat-tiles">
-        ${CATEGORIES.map(cat => `
-          <div class="cat-tile" onclick="navigate('category','${cat.id}')">
-            <div class="cat-tile-icon">${getCatIcon(cat.id)}</div>
-            <div class="cat-tile-name">${cat.name.toUpperCase()}</div>
-            <div class="cat-tile-count">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
-          </div>
-        `).join('')}
-      </div>
-
-      <!-- Нижний бар -->
-      <div class="bottom-bar">
-        <button class="tech-button" onclick="tabNavigate('course')">
-          <span class="br tl"></span><span class="br tr"></span>
-          <span class="br bl"></span><span class="br br"></span>
-          &gt;_VIEW_COURSE
-        </button>
-        <div class="version">V.1.0.0 · ${COURSE.lessons.length}LSN</div>
+        <div class="hero-badge">● PHOTO.BLOG</div>
       </div>
     </div>
 
-    <!-- Глитч-фото -->
-    <div class="glitch-section">
-      <div class="glitch-photo">
-        <div class="glitch-scanlines"></div>
-        <div class="glitch-gradient"></div>
-        <div class="glitch-caption">
-          <span class="glitch-caption-name">РАЗДАЧА·СТИЛЯ</span>
-          <span class="glitch-caption-tag">&gt;_PHOTO.BLOG<br>© 2025—∞</span>
-        </div>
+    <!-- Пилюли категорий -->
+    <div class="pill-nav-wrap">
+      <div class="pill-nav">
+        ${CATEGORIES.map(cat => `
+          <button class="pill-item" onclick="navigate('category','${cat.id}')">${cat.name.toUpperCase()}</button>
+        `).join('')}
       </div>
+    </div>
+
+    <!-- Карточки категорий -->
+    <div class="cat-cards">
+      ${CATEGORIES.map(cat => `
+        <div class="cat-card" onclick="navigate('category','${cat.id}')">
+          <div class="cat-card-icon-wrap">${getCatIcon(cat.id)}</div>
+          <div class="cat-card-name">${cat.name.toUpperCase()}</div>
+          <div class="cat-card-meta">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- Кнопка курса -->
+    <div class="home-course-wrap">
+      <button class="home-course-btn" onclick="tabNavigate('course')">
+        &gt;_ ОТКРЫТЬ КУРС — ${COURSE.price.toLocaleString('ru-RU')} ${COURSE.currency}
+      </button>
     </div>
   `;
 }
