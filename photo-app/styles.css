@@ -10,7 +10,7 @@
   --free:     #4ade80;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bot: env(safe-area-inset-bottom, 0px);
-  --font-head: 'Unbounded', sans-serif;
+  --font-head: 'Inter', sans-serif;
   --font-type: 'PT Mono', 'Courier New', Courier, monospace;
 }
 
@@ -103,11 +103,13 @@ html, body {
 
 .home-title {
   font-family: var(--font-head);
-  font-size: 21vw;
+  font-size: 17vw;
   font-weight: 900;
-  line-height: 0.88;
+  line-height: 1.0;
   letter-spacing: -1px;
   color: #fff;
+  text-align: center;
+  width: 100%;
   margin-bottom: 22px;
   animation: title-glitch 7s linear infinite;
 }
