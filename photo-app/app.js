@@ -76,30 +76,24 @@ function render(screen, params, direction) {
 // ─── 3D ЭФФЕКТ НА ФОТО ───────────────────────────────────────────────────────
 
 function init3D() {
-  const img = document.querySelector('.hero-img');
+  const img = document.querySelector('.photo-cutout');
   if (!img) return;
 
-  // Мобильный: наклон телефона
   const handleOrientation = (e) => {
-    if (!document.querySelector('.hero-img')) return; // экран сменился
-    const x = Math.max(-1, Math.min(1, (e.gamma || 0) / 25));
-    const y = Math.max(-1, Math.min(1, ((e.beta || 45) - 45) / 25));
-    img.style.transform = `perspective(600px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg) scale(1.08)`;
+    if (!document.querySelector('.photo-cutout')) return;
+    const x = Math.max(-1, Math.min(1, (e.gamma || 0) / 30));
+    const y = Math.max(-1, Math.min(1, ((e.beta || 45) - 45) / 30));
+    img.style.transform = `translate(${x * 8}px, ${y * 4}px) scale(1.02)`;
   };
 
-  // Десктоп: движение мыши
   const handleMouse = (e) => {
-    if (!document.querySelector('.hero-img')) return;
-    const wrap = img.closest('.hero-img-wrap');
-    if (!wrap) return;
-    const rect = wrap.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
-    img.style.transform = `perspective(600px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) scale(1.08)`;
+    if (!document.querySelector('.photo-cutout')) return;
+    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    img.style.transform = `translate(${x * 12}px, ${y * 6}px) scale(1.02)`;
   };
 
   if (window.DeviceOrientationEvent) {
-    // Запрашиваем разрешение на iOS 13+
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
       DeviceOrientationEvent.requestPermission().then(state => {
         if (state === 'granted') window.addEventListener('deviceorientation', handleOrientation);
@@ -118,44 +112,52 @@ function screenHome() {
   const free = COURSE.lessons.filter(l => l.free).length;
 
   return `
-    <!-- Топбар -->
-    <div class="topbar">
-      <div class="topbar-logo">Раздача Стиля</div>
-      <div class="topbar-tag">VER. 1.0</div>
-    </div>
-
-    <!-- Hero tile: фото слева, текст справа -->
-    <div class="hero-tile">
-      <div class="hero-img-wrap">
-        <img class="hero-img" src="hero.jpg" alt="" onerror="this.style.opacity='0'">
-      </div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">── VISUAL STYLE</div>
-        <div class="hero-big">РАЗ<br>ДА<em>ЧА</em><br>СТИ<em>ЛЯ</em></div>
-        <div class="hero-bottom">фотография<br>стиль · обработка<br>курсы</div>
-      </div>
-    </div>
-
-    <!-- 2×2 тайловая сетка категорий -->
-    <div class="cats-grid">
-      ${CATEGORIES.map((cat, i) => `
-        <div class="cat-tile" onclick="navigate('category','${cat.id}')">
-          <div class="ct-num">0${i + 1}</div>
-          <span class="ct-emoji">${cat.emoji}</span>
-          <div class="ct-name">${cat.name}</div>
-          <div class="ct-arrow">${cat.posts.length} ${plural(cat.posts.length,'пост','поста','постов')} →</div>
+    <div class="home-red">
+      <!-- Баннер с названием -->
+      <div class="banner">
+        <div class="banner-tag">VER. 1.0</div>
+        <div class="banner-title">
+          <div><span class="fill">РАЗДАЧА</span></div>
+          <div><span class="outline">СТИЛЯ</span></div>
         </div>
-      `).join('')}
-    </div>
+      </div>
 
-    <!-- Тайл курса на полную ширину -->
-    <div class="course-tile" onclick="navigate('course')">
-      <div class="ct-label">── Видеокурс</div>
-      <div class="ct-title">Сам себе<br>Фотограф</div>
-      <div class="ct-line"></div>
-      <div class="ct-meta">
-        <span>${COURSE.lessons.length} уроков · ${free} бесплатно</span>
-        <span class="ct-cta">Смотреть →</span>
+      <!-- Основная editorial-сетка -->
+      <div class="editorial">
+        <!-- Категории как текст-лист -->
+        <div class="cat-list">
+          ${CATEGORIES.map((cat, i) => `
+            <div class="cat-row" onclick="navigate('category','${cat.id}')">
+              <span class="cat-num">0${i + 1}</span>
+              <span class="cat-word">${cat.name.toUpperCase()}.</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Фото-обтравка -->
+        <div class="photo-cell">
+          <img class="photo-cutout" src="hero-cutout.png" alt="">
+        </div>
+
+        <!-- Иконка -->
+        <div class="icon-cell">
+          <div class="circle-icon"></div>
+        </div>
+
+        <!-- Описание -->
+        <div class="desc-cell">
+          Авторский блог про фотографию. Рецепты съёмки, обработка, видеоуроки и полный курс «Сам себе фотограф» — от нуля до уверенной работы с камерой.
+        </div>
+      </div>
+
+      <!-- Нижний бар с кнопкой -->
+      <div class="bottom-bar">
+        <button class="tech-button" onclick="navigate('course')">
+          <span class="br tl"></span><span class="br tr"></span>
+          <span class="br bl"></span><span class="br br"></span>
+          &gt;_VIEW_COURSE
+        </button>
+        <div class="version">V.1.0.0 · ${COURSE.lessons.length}LSN</div>
       </div>
     </div>
   `;
