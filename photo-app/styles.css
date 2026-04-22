@@ -1,21 +1,46 @@
 /* ─── ПЕРЕМЕННЫЕ ─────────────────────────────────────────────────────────────── */
 :root {
-  --bg:        #080808;
-  --surface:   #111111;
-  --surface-2: #1a1a1a;
-  --red:       #ff1a1a;
-  --red-dim:   rgba(255, 26, 26, 0.12);
-  --red-brd:   rgba(255, 26, 26, 0.3);
-  --text:      #f0f0f0;
-  --text-2:    #888;
-  --text-3:    #444;
-  --grid:      rgba(255,255,255,0.06);
-  --free:      #4ade80;
-  --free-bg:   rgba(74, 222, 128, 0.1);
-  --r:         4px;
-  --r-lg:      6px;
-  --safe-top:  env(safe-area-inset-top, 0px);
-  --safe-bot:  env(safe-area-inset-bottom, 0px);
+  --bg:       #080808;
+  --red:      #ff1a1a;
+  --border:   rgba(255, 255, 255, 0.1);
+  --text:     #f0f0f0;
+  --text-2:   #777;
+  --text-3:   #333;
+  --free:     #4ade80;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+
+/* ─── ЗЕРНО ──────────────────────────────────────────────────────────────────── */
+.grain-svg {
+  position: fixed;
+  width: 0;
+  height: 0;
+}
+
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  animation: grain-move 7s steps(8) infinite;
+}
+
+@keyframes grain-move {
+  0%   { transform: translate(0, 0); }
+  12%  { transform: translate(-4%, -4%); }
+  25%  { transform: translate(-8%, 4%); }
+  37%  { transform: translate(4%, -8%); }
+  50%  { transform: translate(-4%, 12%); }
+  62%  { transform: translate(-8%, 4%); }
+  75%  { transform: translate(12%, 0); }
+  87%  { transform: translate(0, 8%); }
+  100% { transform: translate(4%, 0); }
 }
 
 /* ─── БАЗА ───────────────────────────────────────────────────────────────────── */
@@ -27,7 +52,6 @@ html, body {
   color: var(--text);
   font-family: 'Inter', -apple-system, sans-serif;
   font-size: 14px;
-  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
 }
@@ -44,351 +68,318 @@ html, body {
   inset: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: calc(24px + var(--safe-bot));
   -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(16px + var(--safe-bot));
   z-index: 1;
 }
 
 .screen.enter {
   z-index: 2;
-  animation: slideIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
 .screen.exit {
-  animation: slideOut 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   pointer-events: none;
 }
 
 @keyframes slideIn  { from { transform: translateX(100%); } to { transform: translateX(0); } }
-@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-24%); opacity: 0; } }
+@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-20%); opacity: 0; } }
 
-/* ─── HERO ───────────────────────────────────────────────────────────────────── */
-.hero {
-  position: relative;
-  height: 52vw;
-  min-height: 200px;
-  max-height: 280px;
-  overflow: hidden;
-  background: #0f0f0f;
-  padding-top: var(--safe-top);
-}
-
-.hero-photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.55;
-  filter: saturate(0.7) contrast(1.1);
-}
-
-.hero-photo-placeholder {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #1a0a0a 0%, #0a0a1a 50%, #0a0f0a 100%);
+/* ─── ТОПБАР ─────────────────────────────────────────────────────────────────── */
+.topbar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 64px;
-  opacity: 0.3;
+  justify-content: space-between;
+  padding: 12px 16px;
+  padding-top: calc(12px + var(--safe-top));
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.2) 60%, transparent 100%);
-}
-
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-}
-
-.hero-corner {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-}
-.hero-corner.tl { top: 12px; left: 12px; border-top: 1.5px solid var(--red); border-left: 1.5px solid var(--red); }
-.hero-corner.tr { top: 12px; right: 12px; border-top: 1.5px solid var(--red); border-right: 1.5px solid var(--red); }
-.hero-corner.bl { bottom: 12px; left: 12px; border-bottom: 1.5px solid var(--red); border-left: 1.5px solid var(--red); }
-.hero-corner.br { bottom: 12px; right: 12px; border-bottom: 1.5px solid var(--red); border-right: 1.5px solid var(--red); }
-
-.hero-tag {
-  position: absolute;
-  top: calc(14px + var(--safe-top));
-  left: 20px;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--red);
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.hero-ver {
-  position: absolute;
-  top: calc(14px + var(--safe-top));
-  right: 20px;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: var(--text-3);
-  font-family: monospace;
-}
-
-.hero-title {
-  position: absolute;
-  bottom: 16px;
-  left: 20px;
-  right: 20px;
-}
-
-.hero-title-main {
+.topbar-logo {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 56px;
-  line-height: 0.92;
-  letter-spacing: 2px;
+  font-size: 20px;
+  letter-spacing: 3px;
   color: var(--text);
   text-transform: uppercase;
 }
 
-.hero-title-main em {
+.topbar-tag {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-3);
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+/* ─── HERO TILE ──────────────────────────────────────────────────────────────── */
+.hero-tile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+  height: 52vw;
+  min-height: 180px;
+  max-height: 240px;
+  overflow: hidden;
+}
+
+.hero-img-wrap {
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  background: #111;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transform-origin: center center;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  filter: saturate(0.75) contrast(1.05);
+}
+
+.hero-content {
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--red);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: monospace;
+}
+
+.hero-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 10vw, 52px);
+  letter-spacing: 3px;
+  line-height: 0.9;
+  color: var(--text);
+}
+
+.hero-big em {
+  display: block;
   color: var(--red);
   font-style: normal;
 }
 
-.hero-title-sub {
-  margin-top: 6px;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--text-2);
-  font-weight: 500;
-}
-
-/* ─── СЕТКА КАТЕГОРИЙ ────────────────────────────────────────────────────────── */
-.cats-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 20px 12px;
-}
-
-.cats-header-line {
-  flex: 1;
-  height: 1px;
-  background: var(--grid);
-}
-
-.cats-header-label {
+.hero-bottom {
   font-size: 9px;
-  letter-spacing: 2.5px;
+  letter-spacing: 1.5px;
+  color: var(--text-2);
   text-transform: uppercase;
-  color: var(--text-3);
-  font-weight: 600;
-  white-space: nowrap;
+  line-height: 1.6;
 }
 
-.category-grid {
+/* ─── ТАЙЛОВАЯ СЕТКА КАТЕГОРИЙ ───────────────────────────────────────────────── */
+.cats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  padding: 0 20px;
-  margin-bottom: 24px;
-  background: var(--grid);
-  border: 1px solid var(--grid);
-  border-radius: var(--r-lg);
-  overflow: hidden;
+  border-bottom: 1px solid var(--border);
 }
 
-.cat-card {
-  background: var(--bg);
-  padding: 18px 14px;
+.cat-tile {
+  padding: 18px 14px 14px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
-  transition: background 0.12s;
-  -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s;
+  display: flex;
+  flex-direction: column;
+  min-height: 110px;
 }
 
-.cat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 2px;
-  height: 0;
-  background: var(--red);
-  transition: height 0.2s;
+.cat-tile:nth-child(even) {
+  border-right: none;
 }
 
-.cat-card:active {
-  background: var(--surface);
+.cat-tile:nth-child(3),
+.cat-tile:nth-child(4) {
+  border-bottom: none;
 }
 
-.cat-card:active::before {
-  height: 100%;
+.cat-tile:active {
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.cat-num {
+.ct-num {
   font-family: monospace;
-  font-size: 9px;
+  font-size: 8px;
   color: var(--text-3);
   letter-spacing: 1px;
-  margin-bottom: 10px;
-}
-
-.cat-emoji {
-  font-size: 22px;
-  display: block;
   margin-bottom: 8px;
 }
 
-.cat-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  letter-spacing: 1px;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 4px;
+.ct-emoji {
+  font-size: 20px;
+  margin-bottom: 6px;
+  display: block;
 }
 
-.cat-count {
+.ct-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  color: var(--text);
+  flex: 1;
+}
+
+.ct-arrow {
+  margin-top: 10px;
   font-size: 11px;
   color: var(--text-3);
+  letter-spacing: 1px;
 }
 
-/* ─── БАННЕР КУРСА ───────────────────────────────────────────────────────────── */
-.course-banner {
-  margin: 0 20px 24px;
-  border: 1px solid var(--red-brd);
-  border-radius: var(--r-lg);
-  padding: 20px;
+/* Красная полоска слева при тапе */
+.cat-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--red);
+  transition: width 0.2s;
+}
+
+.cat-tile:active::before { width: 100%; }
+
+/* ─── ТАЙЛ КУРСА ─────────────────────────────────────────────────────────────── */
+.course-tile {
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  background: #0d0505;
-  transition: border-color 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s;
 }
 
-.course-banner:active {
-  transform: scale(0.98);
-  border-color: var(--red);
-}
+.course-tile:active { background: rgba(255,26,26,0.05); }
 
-.course-banner-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,26,26,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,26,26,0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
-}
-
-.course-banner-tag {
+.ct-label {
   font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  letter-spacing: 2.5px;
   color: var(--red);
   font-weight: 600;
+  text-transform: uppercase;
   margin-bottom: 10px;
+  font-family: monospace;
 }
 
-.course-banner-title {
+.ct-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
+  font-size: clamp(32px, 9vw, 44px);
   letter-spacing: 2px;
+  line-height: 0.95;
   color: var(--text);
-  line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 14px;
 }
 
-.course-banner-meta {
-  font-size: 12px;
-  color: var(--text-2);
+.ct-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-2);
+  letter-spacing: 0.5px;
 }
 
-.course-banner-cta {
+.ct-cta {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 16px;
   letter-spacing: 2px;
   color: var(--red);
 }
 
-/* ─── ШАПКА СТРАНИЦЫ ─────────────────────────────────────────────────────────── */
+/* Горизонтальная линия-декор */
+.ct-line {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 14px 0;
+}
+
+/* ─── ШАПКА ВНУТРЕННИХ СТРАНИЦ ───────────────────────────────────────────────── */
 .page-header {
-  padding: 16px 20px 14px;
-  padding-top: calc(16px + var(--safe-top));
-  border-bottom: 1px solid var(--grid);
+  padding: 14px 16px;
+  padding-top: calc(14px + var(--safe-top));
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   background: var(--bg);
   z-index: 10;
 }
 
-.page-header-label {
-  font-size: 9px;
+.page-header-eyebrow {
+  font-size: 8px;
   letter-spacing: 2px;
-  text-transform: uppercase;
   color: var(--red);
   font-weight: 600;
+  text-transform: uppercase;
+  font-family: monospace;
   margin-bottom: 4px;
 }
 
 .page-header-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 1.5px;
+  font-size: 28px;
+  letter-spacing: 2px;
   color: var(--text);
   line-height: 1;
 }
 
 .page-header-desc {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-3);
   margin-top: 4px;
+  letter-spacing: 0.3px;
 }
 
 /* ─── СПИСОК ПОСТОВ ──────────────────────────────────────────────────────────── */
-.post-list { padding: 0; }
-
 .post-item {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--grid);
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
-  transition: background 0.12s;
   -webkit-tap-highlight-color: transparent;
+  transition: background 0.1s;
 }
 
-.post-item:active { background: var(--surface); }
+.post-item:active { background: rgba(255,255,255,0.03); }
 
 .post-thumb {
   width: 100%;
   aspect-ratio: 16/9;
-  background: var(--surface);
-  border-radius: var(--r);
+  background: #111;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 24px;
   overflow: hidden;
 }
 
 .post-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
 .post-text {
-  font-size: 14px;
-  color: var(--text);
+  font-size: 13px;
   line-height: 1.6;
+  color: var(--text);
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -397,71 +388,63 @@ html, body {
 
 .post-meta {
   margin-top: 8px;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-3);
-  display: flex;
-  align-items: center;
-  gap: 8px;
   font-family: monospace;
   letter-spacing: 0.5px;
+  display: flex;
+  gap: 8px;
 }
 
 .post-badge {
-  background: var(--surface-2);
-  padding: 2px 6px;
-  border-radius: 2px;
-  font-size: 10px;
-  color: var(--text-2);
   letter-spacing: 1px;
   text-transform: uppercase;
+  color: var(--text-2);
 }
 
-/* ─── ДЕТАЛЬНЫЙ ПРОСМОТР ─────────────────────────────────────────────────────── */
-.post-detail { padding: 20px; }
+/* ─── ДЕТАЛЬНЫЙ ПОСТ ─────────────────────────────────────────────────────────── */
+.post-detail { padding: 16px; }
 
 .post-detail-date {
   font-family: monospace;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text-3);
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .post-detail-media {
   width: 100%;
   aspect-ratio: 4/3;
-  background: var(--surface);
-  border-radius: var(--r);
-  margin-bottom: 18px;
+  background: #111;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 44px;
+  font-size: 40px;
   overflow: hidden;
 }
 
 .post-detail-media img { width: 100%; height: 100%; object-fit: cover; }
 
 .post-detail-text {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.75;
   color: var(--text);
 }
 
 /* ─── КУРС ───────────────────────────────────────────────────────────────────── */
 .course-stats {
-  display: flex;
-  gap: 0;
-  padding: 16px 20px 0;
-  border-bottom: 1px solid var(--grid);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--border);
 }
 
 .course-stat {
-  flex: 1;
-  padding: 12px 0;
-  border-right: 1px solid var(--grid);
+  padding: 16px 0;
   text-align: center;
+  border-right: 1px solid var(--border);
 }
 
 .course-stat:last-child { border-right: none; }
@@ -469,63 +452,54 @@ html, body {
 .course-stat strong {
   display: block;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
-  color: var(--text);
+  font-size: 32px;
   letter-spacing: 1px;
+  color: var(--text);
   line-height: 1;
 }
 
 .course-stat span {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text-3);
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
-.lesson-list { padding: 0 20px; }
+.lesson-list { padding: 0 16px; }
 
 .lesson-item {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid var(--grid);
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.12s;
+  transition: opacity 0.1s;
 }
 
 .lesson-item:active { opacity: 0.6; }
 
 .lesson-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r);
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   flex-shrink: 0;
+  border: 1px solid var(--border);
   font-family: monospace;
 }
 
-.lesson-icon.free {
-  background: var(--free-bg);
-  color: var(--free);
-  border: 1px solid rgba(74,222,128,0.2);
-}
-
-.lesson-icon.locked {
-  background: var(--surface);
-  color: var(--text-3);
-  border: 1px solid var(--grid);
-}
+.lesson-icon.free  { border-color: rgba(74,222,128,0.3); color: var(--free); }
+.lesson-icon.locked { color: var(--text-3); }
 
 .lesson-info { flex: 1; min-width: 0; }
 
 .lesson-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text);
   margin-bottom: 3px;
@@ -537,42 +511,28 @@ html, body {
 .lesson-title.dimmed { color: var(--text-2); }
 
 .lesson-meta {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-3);
-  display: flex;
-  align-items: center;
-  gap: 8px;
   font-family: monospace;
   letter-spacing: 0.5px;
+  display: flex;
+  gap: 8px;
 }
 
-.free-badge {
-  color: var(--free);
-  font-size: 10px;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  letter-spacing: 0.5px;
-}
+.free-badge { color: var(--free); font-size: 10px; font-weight: 600; font-family: 'Inter', sans-serif; }
 
-/* ─── КНОПКА ПОКУПКИ ─────────────────────────────────────────────────────────── */
-.buy-section {
-  margin: 24px 20px 8px;
-}
+/* ─── ПОКУПКА ────────────────────────────────────────────────────────────────── */
+.buy-section { padding: 20px 16px 8px; }
 
 .buy-price {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 48px;
+  font-size: 52px;
   color: var(--red);
   letter-spacing: 2px;
   line-height: 1;
 }
 
-.buy-note {
-  font-size: 12px;
-  color: var(--text-3);
-  margin: 6px 0 18px;
-  letter-spacing: 0.5px;
-}
+.buy-note { font-size: 11px; color: var(--text-3); margin: 6px 0 18px; letter-spacing: 0.5px; }
 
 .buy-btn {
   width: 100%;
@@ -580,57 +540,36 @@ html, body {
   background: var(--red);
   color: #fff;
   border: none;
-  border-radius: var(--r);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 20px;
   letter-spacing: 3px;
   cursor: pointer;
-  transition: opacity 0.12s, transform 0.12s;
-  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.1s, transform 0.1s;
 }
 
-.buy-btn:active { opacity: 0.85; transform: scale(0.98); }
+.buy-btn:active { opacity: 0.85; transform: scale(0.99); }
 
 /* ─── ПУСТОЙ ЭКРАН ───────────────────────────────────────────────────────────── */
-.empty-state {
-  padding: 64px 24px;
-  text-align: center;
-}
+.empty-state { padding: 56px 20px; text-align: center; }
+.empty-state-emoji { font-size: 44px; margin-bottom: 14px; }
+.empty-state-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--text-2); margin-bottom: 8px; }
+.empty-state-desc { font-size: 12px; color: var(--text-3); line-height: 1.65; }
 
-.empty-state-emoji { font-size: 48px; margin-bottom: 16px; }
-
-.empty-state-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 24px;
-  letter-spacing: 2px;
-  color: var(--text-2);
-  margin-bottom: 8px;
-}
-
-.empty-state-desc { font-size: 13px; color: var(--text-3); line-height: 1.65; }
-
-/* ─── УРОК ───────────────────────────────────────────────────────────────────── */
+/* ─── ВИДЕО-ПЛЕЙСХОЛДЕР ──────────────────────────────────────────────────────── */
 .video-placeholder {
-  margin: 20px;
+  margin: 16px;
   aspect-ratio: 16/9;
-  background: var(--surface);
-  border-radius: var(--r);
+  background: #111;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  border: 1px solid var(--grid);
+  gap: 10px;
+  border: 1px solid var(--border);
 }
 
-.video-placeholder-icon { font-size: 44px; }
-
-.video-placeholder-text {
-  font-size: 12px;
-  color: var(--text-3);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+.video-placeholder-icon { font-size: 40px; }
+.video-placeholder-text { font-size: 10px; color: var(--text-3); letter-spacing: 1px; text-transform: uppercase; }
 
 /* ─── СКРОЛЛБАР ──────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 0; }

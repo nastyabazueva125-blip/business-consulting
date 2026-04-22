@@ -9,13 +9,8 @@ const tg = window.Telegram?.WebApp ?? {
     onClick: (fn) => document.addEventListener('keydown', e => e.key === 'Escape' && fn()),
     offClick: () => {}
   },
-  MainButton: {
-    show: () => {}, hide: () => {},
-    setText: () => {}, onClick: () => {}, offClick: () => {},
-    isVisible: false
-  },
+  MainButton: { show: () => {}, hide: () => {}, setText: () => {}, onClick: () => {}, offClick: () => {} },
   HapticFeedback: { impactOccurred: () => {}, notificationOccurred: () => {} },
-  colorScheme: 'dark',
 };
 
 tg.ready();
@@ -23,7 +18,7 @@ tg.expand();
 
 // ─── НАВИГАЦИЯ ────────────────────────────────────────────────────────────────
 
-const stack = []; // [{ screen, params }]
+const stack = [];
 
 function navigate(screen, params) {
   stack.push({ screen, params: params ?? null });
@@ -73,54 +68,94 @@ function render(screen, params, direction) {
   }
 
   app.appendChild(el);
+
+  // Запускаем 3D эффект только на главной
+  if (screen === 'home') init3D();
 }
 
-// ─── ГЛАВНАЯ СТРАНИЦА ─────────────────────────────────────────────────────────
+// ─── 3D ЭФФЕКТ НА ФОТО ───────────────────────────────────────────────────────
+
+function init3D() {
+  const img = document.querySelector('.hero-img');
+  if (!img) return;
+
+  // Мобильный: наклон телефона
+  const handleOrientation = (e) => {
+    if (!document.querySelector('.hero-img')) return; // экран сменился
+    const x = Math.max(-1, Math.min(1, (e.gamma || 0) / 25));
+    const y = Math.max(-1, Math.min(1, ((e.beta || 45) - 45) / 25));
+    img.style.transform = `perspective(600px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg) scale(1.08)`;
+  };
+
+  // Десктоп: движение мыши
+  const handleMouse = (e) => {
+    if (!document.querySelector('.hero-img')) return;
+    const wrap = img.closest('.hero-img-wrap');
+    if (!wrap) return;
+    const rect = wrap.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+    img.style.transform = `perspective(600px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) scale(1.08)`;
+  };
+
+  if (window.DeviceOrientationEvent) {
+    // Запрашиваем разрешение на iOS 13+
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission().then(state => {
+        if (state === 'granted') window.addEventListener('deviceorientation', handleOrientation);
+      }).catch(() => {});
+    } else {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+  }
+
+  document.addEventListener('mousemove', handleMouse);
+}
+
+// ─── ГЛАВНАЯ ──────────────────────────────────────────────────────────────────
 
 function screenHome() {
   const free = COURSE.lessons.filter(l => l.free).length;
 
   return `
-    <div class="hero">
-      <img class="hero-photo" src="hero.jpg" onerror="this.style.display='none'">
-      <div class="hero-photo-placeholder">📷</div>
-      <div class="hero-grid"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-corner tl"></div>
-      <div class="hero-corner tr"></div>
-      <div class="hero-corner bl"></div>
-      <div class="hero-corner br"></div>
-      <div class="hero-tag">раздача стиля</div>
-      <div class="hero-ver">VER. 1.0</div>
-      <div class="hero-title">
-        <div class="hero-title-main">фото<em>·</em><br>графия</div>
-        <div class="hero-title-sub">стиль · обработка · курсы</div>
+    <!-- Топбар -->
+    <div class="topbar">
+      <div class="topbar-logo">Раздача Стиля</div>
+      <div class="topbar-tag">VER. 1.0</div>
+    </div>
+
+    <!-- Hero tile: фото слева, текст справа -->
+    <div class="hero-tile">
+      <div class="hero-img-wrap">
+        <img class="hero-img" src="hero.jpg" alt="" onerror="this.style.opacity='0'">
+      </div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">── VISUAL STYLE</div>
+        <div class="hero-big">РАЗ<br>ДА<em>ЧА</em><br>СТИ<em>ЛЯ</em></div>
+        <div class="hero-bottom">фотография<br>стиль · обработка<br>курсы</div>
       </div>
     </div>
 
-    <div class="cats-header">
-      <div class="cats-header-label">Категории</div>
-      <div class="cats-header-line"></div>
-    </div>
-
-    <div class="category-grid">
+    <!-- 2×2 тайловая сетка категорий -->
+    <div class="cats-grid">
       ${CATEGORIES.map((cat, i) => `
-        <div class="cat-card" onclick="navigate('category','${cat.id}')">
-          <div class="cat-num">0${i + 1}</div>
-          <span class="cat-emoji">${cat.emoji}</span>
-          <div class="cat-name">${cat.name}</div>
-          <div class="cat-count">${cat.posts.length} ${plural(cat.posts.length,'пост','поста','постов')}</div>
+        <div class="cat-tile" onclick="navigate('category','${cat.id}')">
+          <div class="ct-num">0${i + 1}</div>
+          <span class="ct-emoji">${cat.emoji}</span>
+          <div class="ct-name">${cat.name}</div>
+          <div class="ct-arrow">${cat.posts.length} ${plural(cat.posts.length,'пост','поста','постов')} →</div>
         </div>
       `).join('')}
     </div>
 
-    <div class="course-banner" onclick="navigate('course')">
-      <div class="course-banner-grid"></div>
-      <div class="course-banner-tag">── Видеокурс</div>
-      <div class="course-banner-title">${COURSE.title}</div>
-      <div class="course-banner-meta">
+    <!-- Тайл курса на полную ширину -->
+    <div class="course-tile" onclick="navigate('course')">
+      <div class="ct-label">── Видеокурс</div>
+      <div class="ct-title">Сам себе<br>Фотограф</div>
+      <div class="ct-line"></div>
+      <div class="ct-meta">
         <span>${COURSE.lessons.length} уроков · ${free} бесплатно</span>
-        <span class="course-banner-cta">Смотреть →</span>
+        <span class="ct-cta">Смотреть →</span>
       </div>
     </div>
   `;
@@ -136,13 +171,13 @@ function screenCategory(catId) {
     ? `<div class="empty-state">
          <div class="empty-state-emoji">${cat.emoji}</div>
          <div class="empty-state-title">Скоро будет контент</div>
-         <div class="empty-state-desc">Посты из закрытого канала<br>появятся здесь после загрузки</div>
+         <div class="empty-state-desc">Посты из канала появятся здесь</div>
        </div>`
-    : `<div class="post-list">${cat.posts.map(postItem).join('')}</div>`;
+    : cat.posts.map(postItem).join('');
 
   return `
     <div class="page-header">
-      <div class="page-header-label">${cat.emoji} категория</div>
+      <div class="page-header-eyebrow">${cat.emoji} категория</div>
       <div class="page-header-title">${cat.name}</div>
       <div class="page-header-desc">${cat.desc}</div>
     </div>
@@ -188,11 +223,10 @@ function screenPost(postId) {
 
   return `
     <div class="page-header">
-      <div class="page-header-label">${cat.emoji} пост</div>
-      <div class="page-header-title">${cat.name}</div>
+      <div class="page-header-eyebrow">${cat.emoji} ${cat.name}</div>
+      <div class="page-header-title">${fmtDate(post.date)}</div>
     </div>
     <div class="post-detail">
-      <div class="post-detail-date">${fmtDate(post.date)}</div>
       ${media}
       <div class="post-detail-text">${esc(post.text)}</div>
     </div>
@@ -220,7 +254,7 @@ function screenCourse() {
 
   return `
     <div class="page-header">
-      <div class="page-header-label">🎓 видеокурс</div>
+      <div class="page-header-eyebrow">🎓 видеокурс</div>
       <div class="page-header-title">${COURSE.title}</div>
       <div class="page-header-desc">${COURSE.desc}</div>
     </div>
@@ -235,7 +269,7 @@ function screenCourse() {
 
     <div class="buy-section">
       <div class="buy-price">${COURSE.price.toLocaleString('ru-RU')} ${COURSE.currency}</div>
-      <div class="buy-note">Полный доступ ко всем урокам</div>
+      <div class="buy-note">Полный доступ ко всем урокам навсегда</div>
       <button class="buy-btn" onclick="buyCourse()">Купить курс</button>
     </div>
   `;
@@ -266,13 +300,13 @@ function screenLesson(id) {
 
   return `
     <div class="page-header">
-      <div class="page-header-label">▶ урок ${idx + 1}</div>
+      <div class="page-header-eyebrow">▶ урок ${idx + 1}</div>
       <div class="page-header-title">${lesson.title}</div>
       <div class="page-header-desc">${lesson.duration}</div>
     </div>
     <div class="video-placeholder">
       <div class="video-placeholder-icon">🎬</div>
-      <div class="video-placeholder-text">Видео будет добавлено скоро</div>
+      <div class="video-placeholder-text">Видео скоро появится</div>
     </div>
   `;
 }
@@ -280,9 +314,7 @@ function screenLesson(id) {
 // ─── УТИЛИТЫ ──────────────────────────────────────────────────────────────────
 
 function fmtDate(str) {
-  return new Date(str).toLocaleDateString('ru-RU', {
-    day: 'numeric', month: 'long', year: 'numeric'
-  });
+  return new Date(str).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 function esc(str) {
@@ -294,9 +326,9 @@ function esc(str) {
 }
 
 function plural(n, one, few, many) {
-  const mod10 = n % 10, mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return `${n} ${one}`;
-  if ([2,3,4].includes(mod10) && ![12,13,14].includes(mod100)) return `${n} ${few}`;
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return `${n} ${one}`;
+  if ([2,3,4].includes(m10) && ![12,13,14].includes(m100)) return `${n} ${few}`;
   return `${n} ${many}`;
 }
 
