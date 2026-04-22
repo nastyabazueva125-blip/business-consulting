@@ -125,10 +125,23 @@ function init3D() {
 
 // ─── ГЛАВНАЯ ──────────────────────────────────────────────────────────────────
 
+function getCatIcon(catId) {
+  const map = {
+    recipes_photo:   '<div class="cicon icon-lens"></div>',
+    recipes_editing: '<div class="cicon icon-diamond"></div>',
+    video_lessons:   '<div class="cicon icon-play"></div>',
+    watched:         '<div class="cicon icon-eye"></div>',
+  };
+  return map[catId] || '<div class="cicon icon-lens"></div>';
+}
+
 function screenHome() {
+  const totalPosts  = CATEGORIES.reduce((s, c) => s + c.posts.length, 0);
+  const freeLessons = COURSE.lessons.filter(l => l.free).length;
+
   return `
     <div class="home-red">
-      <!-- Баннер с названием -->
+      <!-- Баннер -->
       <div class="banner">
         <div class="banner-tag">VER. 1.0</div>
         <div class="banner-title">
@@ -137,19 +150,25 @@ function screenHome() {
         </div>
       </div>
 
-      <!-- Основная editorial-сетка -->
+      <!-- Editorial-сетка -->
       <div class="editorial">
-        <!-- Категории как текст-лист -->
-        <div class="cat-list">
-          ${CATEGORIES.map((cat, i) => `
-            <div class="cat-row" onclick="navigate('category','${cat.id}')">
-              <span class="cat-num">0${i + 1}</span>
-              <span class="cat-word">${cat.name.toUpperCase()}.</span>
-            </div>
-          `).join('')}
+        <!-- Левая колонка — статы -->
+        <div class="home-stats">
+          <div>
+            <div class="home-stat-num">0${CATEGORIES.length}</div>
+            <div class="home-stat-lbl">ТЕМЫ</div>
+          </div>
+          <div>
+            <div class="home-stat-num">${String(totalPosts).padStart(2, '0')}</div>
+            <div class="home-stat-lbl">ПОСТОВ</div>
+          </div>
+          <div>
+            <div class="home-stat-num">0${freeLessons}</div>
+            <div class="home-stat-lbl">FREE</div>
+          </div>
         </div>
 
-        <!-- Фото-обтравка -->
+        <!-- Правая колонка — фото -->
         <div class="photo-cell">
           <img class="photo-cutout" src="hero-cutout.png" alt="">
         </div>
@@ -165,7 +184,18 @@ function screenHome() {
         </div>
       </div>
 
-      <!-- Нижний бар с кнопкой -->
+      <!-- Тайлы категорий -->
+      <div class="cat-tiles">
+        ${CATEGORIES.map(cat => `
+          <div class="cat-tile" onclick="navigate('category','${cat.id}')">
+            <div class="cat-tile-icon">${getCatIcon(cat.id)}</div>
+            <div class="cat-tile-name">${cat.name.toUpperCase()}</div>
+            <div class="cat-tile-count">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- Нижний бар -->
       <div class="bottom-bar">
         <button class="tech-button" onclick="tabNavigate('course')">
           <span class="br tl"></span><span class="br tr"></span>
@@ -176,7 +206,7 @@ function screenHome() {
       </div>
     </div>
 
-    <!-- Глитч-фото секция ниже -->
+    <!-- Глитч-фото -->
     <div class="glitch-section">
       <div class="glitch-photo">
         <div class="glitch-scanlines"></div>

@@ -131,8 +131,8 @@ html, body {
   position: relative;
 }
 
-/* Левая колонка — список категорий */
-.cat-list {
+/* Левая колонка — статы */
+.home-stats {
   grid-column: 1;
   grid-row: 1 / 3;
   padding: 16px 12px;
@@ -140,37 +140,155 @@ html, body {
   border-bottom: 2px solid var(--ink);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: space-evenly;
   min-height: 180px;
 }
 
-.cat-row {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.12s;
-}
-
-.cat-row:active { opacity: 0.5; }
-
-.cat-num {
-  font-family: monospace;
-  font-size: 10px;
-  color: var(--ink);
-  opacity: 0.7;
-  font-weight: 700;
-  flex-shrink: 0;
-  padding-top: 4px;
-}
-
-.cat-word {
+.home-stat-num {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(28px, 9vw, 40px);
+  font-size: 46px;
   line-height: 1;
   color: var(--ink);
+  letter-spacing: 1px;
+}
+
+.home-stat-lbl {
+  font-family: monospace;
+  font-size: 8px;
+  letter-spacing: 2.5px;
+  color: var(--ink);
+  opacity: 0.6;
+  font-weight: 700;
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+/* ─── ТАЙЛЫ КАТЕГОРИЙ ────────────────────────────────────────────────────────── */
+.cat-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 2px solid var(--ink);
+}
+
+.cat-tile {
+  padding: 16px 14px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.1s;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cat-tile:nth-child(even) { border-right: none; }
+.cat-tile:nth-child(n+3)  { border-bottom: none; }
+.cat-tile:active           { background: rgba(0,0,0,0.08); }
+
+.cat-tile-icon {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 8px;
+}
+
+.cat-tile-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 19px;
   letter-spacing: 0.5px;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 3px;
+}
+
+.cat-tile-count {
+  font-family: monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  opacity: 0.5;
+}
+
+/* ─── CSS-ИКОНКИ ─────────────────────────────────────────────────────────────── */
+.cicon {
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* ◎  Lens — фото */
+.icon-lens {
+  width: 34px;
+  height: 34px;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-lens::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--red), 0 0 0 4.5px var(--ink);
+}
+
+/* ◈  Diamond — обработка */
+.icon-diamond {
+  width: 26px;
+  height: 26px;
+  border: 2.5px solid var(--ink);
+  transform: rotate(45deg);
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-diamond::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+}
+
+/* ▷  Play — видео */
+.icon-play {
+  width: 34px;
+  height: 34px;
+  border: 2.5px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-play::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent var(--ink);
+  margin-left: 3px;
+}
+
+/* ◉  Eye — насмотрелись */
+.icon-eye {
+  width: 38px;
+  height: 23px;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-eye::after {
+  content: '';
+  width: 11px;
+  height: 11px;
+  background: var(--ink);
+  border-radius: 50%;
 }
 
 /* Правая колонка — фото */
