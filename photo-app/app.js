@@ -9,13 +9,8 @@ const tg = window.Telegram?.WebApp ?? {
     onClick: (fn) => document.addEventListener('keydown', e => e.key === 'Escape' && fn()),
     offClick: () => {}
   },
-  MainButton: {
-    show: () => {}, hide: () => {},
-    setText: () => {}, onClick: () => {}, offClick: () => {},
-    isVisible: false
-  },
+  MainButton: { show: () => {}, hide: () => {}, setText: () => {}, onClick: () => {}, offClick: () => {} },
   HapticFeedback: { impactOccurred: () => {}, notificationOccurred: () => {} },
-  colorScheme: 'dark',
 };
 
 tg.ready();
@@ -23,12 +18,28 @@ tg.expand();
 
 // ─── НАВИГАЦИЯ ────────────────────────────────────────────────────────────────
 
-const stack = []; // [{ screen, params }]
+const stack = [];
+let currentTab = 'home';
 
 function navigate(screen, params) {
   stack.push({ screen, params: params ?? null });
   render(screen, params, 'forward');
   tg.BackButton[stack.length > 1 ? 'show' : 'hide']();
+}
+
+function tabNavigate(tab) {
+  currentTab = tab;
+  setActiveTab(tab);
+  stack.length = 0;
+  tg.HapticFeedback.impactOccurred('light');
+  const screenMap = { home: 'home', feed: 'feed', course: 'course' };
+  navigate(screenMap[tab] || 'home');
+}
+
+function setActiveTab(tab) {
+  document.querySelectorAll('.ptab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tab);
+  });
 }
 
 function goBack() {
@@ -60,6 +71,7 @@ function render(screen, params, direction) {
 
   switch (screen) {
     case 'home':     el.innerHTML = screenHome(); break;
+    case 'feed':     el.innerHTML = screenFeed(); break;
     case 'category': el.innerHTML = screenCategory(params); break;
     case 'post':     el.innerHTML = screenPost(params); break;
     case 'course':   el.innerHTML = screenCourse(); break;
@@ -73,38 +85,116 @@ function render(screen, params, direction) {
   }
 
   app.appendChild(el);
+
 }
 
-// ─── ГЛАВНАЯ СТРАНИЦА ─────────────────────────────────────────────────────────
+// ─── 3D ЭФФЕКТ НА ФОТО ───────────────────────────────────────────────────────
+
+function init3D() {
+  const img = document.querySelector('.photo-cutout');
+  if (!img) return;
+
+  const handleOrientation = (e) => {
+    if (!document.querySelector('.photo-cutout')) return;
+    const x = Math.max(-1, Math.min(1, (e.gamma || 0) / 30));
+    const y = Math.max(-1, Math.min(1, ((e.beta || 45) - 45) / 30));
+    img.style.transform = `translate(${x * 8}px, ${y * 4}px) scale(1.02)`;
+  };
+
+  const handleMouse = (e) => {
+    if (!document.querySelector('.photo-cutout')) return;
+    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    img.style.transform = `translate(${x * 12}px, ${y * 6}px) scale(1.02)`;
+  };
+
+  if (window.DeviceOrientationEvent) {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission().then(state => {
+        if (state === 'granted') window.addEventListener('deviceorientation', handleOrientation);
+      }).catch(() => {});
+    } else {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+  }
+
+  document.addEventListener('mousemove', handleMouse);
+}
+
+// ─── ГЛАВНАЯ ──────────────────────────────────────────────────────────────────
+
+function getCatIcon(catId) {
+  const map = {
+    recipes_photo:   '<div class="cicon icon-lens"></div>',
+    recipes_editing: '<div class="cicon icon-diamond"></div>',
+    video_lessons:   '<div class="cicon icon-play"></div>',
+    watched:         '<div class="cicon icon-eye"></div>',
+  };
+  return map[catId] || '<div class="cicon icon-lens"></div>';
+}
 
 function screenHome() {
-  const free = COURSE.lessons.filter(l => l.free).length;
-
   return `
-    <div class="home-hero">
-      <div class="home-title">раздача<br><span>стиля</span></div>
-      <div class="home-sub">фотография · стиль · обработка</div>
+    <!-- Тёмный топ: заголовок + пилюля -->
+    <div class="home-top">
+      <div class="home-title">РАЗДАЧА<br>СТИЛЯ</div>
+      <div class="single-pill">
+        ${CATEGORIES.map(cat => `
+          <button class="spill-btn" onclick="navigate('category','${cat.id}')">${cat.name.toUpperCase()}</button>
+        `).join('')}
+      </div>
     </div>
 
-    <div class="section-label">Категории</div>
-    <div class="category-grid">
-      ${CATEGORIES.map(cat => `
-        <div class="cat-card" onclick="navigate('category','${cat.id}')">
-          <span class="cat-emoji">${cat.emoji}</span>
-          <div class="cat-name">${cat.name}</div>
-          <div class="cat-count">${cat.posts.length} ${plural(cat.posts.length,'пост','поста','постов')}</div>
+    <!-- Полное фото -->
+    <div class="photo-section">
+      <img class="photo-section-img" src="hero.jpg" alt="">
+      <div class="photo-section-gradient"></div>
+      <div class="photo-section-label">
+        <span class="photo-section-tag">● PHOTO.BLOG<br>© 2025—∞</span>
+        <span class="photo-section-desc">авторский блог<br>о фотографии</span>
+      </div>
+    </div>
+
+    <!-- Off-White тайлы -->
+    <div class="ow-grid">
+      ${CATEGORIES.map((cat, i) => `
+        <div class="ow-tile" onclick="navigate('category','${cat.id}')">
+          <div class="ow-tile-num">0${i + 1}</div>
+          <div class="ow-tile-icon">${getCatIcon(cat.id)}</div>
+          <div class="ow-tile-name">${cat.name.toUpperCase()}</div>
+          <div class="ow-tile-meta">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
         </div>
       `).join('')}
     </div>
 
-    <div class="section-label">Курс</div>
-    <div class="course-banner" onclick="navigate('course')">
-      <div>
-        <div class="course-banner-tag">Видеокурс</div>
-        <div class="course-banner-title">${COURSE.title}</div>
-        <div class="course-banner-desc">${COURSE.lessons.length} уроков · ${free} бесплатно</div>
-      </div>
-      <div class="course-banner-arrow">›</div>
+    <!-- Курс -->
+    <div class="home-course-wrap">
+      <button class="home-course-btn" onclick="tabNavigate('course')">
+        &gt;_ КУРС — ${COURSE.price.toLocaleString('ru-RU')} ${COURSE.currency}
+      </button>
+    </div>
+  `;
+}
+
+// ─── КОНТЕНТ (ГРИД КАТЕГОРИЙ) ─────────────────────────────────────────────────
+
+function screenFeed() {
+  return `
+    <div class="page-header">
+      <div class="page-header-eyebrow">// контент</div>
+      <div class="page-header-title">КАТЕГОРИИ</div>
+      <div class="page-header-desc">Выбери раздел</div>
+    </div>
+    <div class="feed-grid">
+      ${CATEGORIES.map((cat, i) => `
+        <div class="feed-cat-card" onclick="navigate('category','${cat.id}')">
+          <div class="feed-cat-num">0${i + 1}</div>
+          <div class="feed-cat-emoji">${cat.emoji}</div>
+          <div class="feed-cat-name">${cat.name.toUpperCase()}</div>
+          <div class="feed-cat-desc">${cat.desc}</div>
+          <div class="feed-cat-count">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
+        </div>
+      `).join('')}
     </div>
   `;
 }
@@ -119,13 +209,13 @@ function screenCategory(catId) {
     ? `<div class="empty-state">
          <div class="empty-state-emoji">${cat.emoji}</div>
          <div class="empty-state-title">Скоро будет контент</div>
-         <div class="empty-state-desc">Посты из закрытого канала<br>появятся здесь после загрузки</div>
+         <div class="empty-state-desc">Посты из канала появятся здесь</div>
        </div>`
-    : `<div class="post-list">${cat.posts.map(postItem).join('')}</div>`;
+    : cat.posts.map(postItem).join('');
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">${cat.emoji}</div>
+      <div class="page-header-eyebrow">${cat.emoji} категория</div>
       <div class="page-header-title">${cat.name}</div>
       <div class="page-header-desc">${cat.desc}</div>
     </div>
@@ -171,11 +261,10 @@ function screenPost(postId) {
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">${cat.emoji}</div>
-      <div class="page-header-title">${cat.name}</div>
+      <div class="page-header-eyebrow">${cat.emoji} ${cat.name}</div>
+      <div class="page-header-title">${fmtDate(post.date)}</div>
     </div>
     <div class="post-detail">
-      <div class="post-detail-date">${fmtDate(post.date)}</div>
       ${media}
       <div class="post-detail-text">${esc(post.text)}</div>
     </div>
@@ -203,7 +292,7 @@ function screenCourse() {
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">🎓</div>
+      <div class="page-header-eyebrow">🎓 видеокурс</div>
       <div class="page-header-title">${COURSE.title}</div>
       <div class="page-header-desc">${COURSE.desc}</div>
     </div>
@@ -218,7 +307,7 @@ function screenCourse() {
 
     <div class="buy-section">
       <div class="buy-price">${COURSE.price.toLocaleString('ru-RU')} ${COURSE.currency}</div>
-      <div class="buy-note">Полный доступ ко всем урокам</div>
+      <div class="buy-note">Полный доступ ко всем урокам навсегда</div>
       <button class="buy-btn" onclick="buyCourse()">Купить курс</button>
     </div>
   `;
@@ -249,13 +338,13 @@ function screenLesson(id) {
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">▶</div>
-      <div class="page-header-title">Урок ${idx + 1}. ${lesson.title}</div>
+      <div class="page-header-eyebrow">▶ урок ${idx + 1}</div>
+      <div class="page-header-title">${lesson.title}</div>
       <div class="page-header-desc">${lesson.duration}</div>
     </div>
     <div class="video-placeholder">
       <div class="video-placeholder-icon">🎬</div>
-      <div class="video-placeholder-text">Видео будет добавлено скоро</div>
+      <div class="video-placeholder-text">Видео скоро появится</div>
     </div>
   `;
 }
@@ -263,9 +352,7 @@ function screenLesson(id) {
 // ─── УТИЛИТЫ ──────────────────────────────────────────────────────────────────
 
 function fmtDate(str) {
-  return new Date(str).toLocaleDateString('ru-RU', {
-    day: 'numeric', month: 'long', year: 'numeric'
-  });
+  return new Date(str).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 function esc(str) {
@@ -277,9 +364,9 @@ function esc(str) {
 }
 
 function plural(n, one, few, many) {
-  const mod10 = n % 10, mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return `${n} ${one}`;
-  if ([2,3,4].includes(mod10) && ![12,13,14].includes(mod100)) return `${n} ${few}`;
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return `${n} ${one}`;
+  if ([2,3,4].includes(m10) && ![12,13,14].includes(m100)) return `${n} ${few}`;
   return `${n} ${many}`;
 }
 
