@@ -81,15 +81,32 @@ function screenHome() {
   const free = COURSE.lessons.filter(l => l.free).length;
 
   return `
-    <div class="home-hero">
-      <div class="home-title">раздача<br><span>стиля</span></div>
-      <div class="home-sub">фотография · стиль · обработка</div>
+    <div class="hero">
+      <img class="hero-photo" src="hero.jpg" onerror="this.style.display='none'">
+      <div class="hero-photo-placeholder">📷</div>
+      <div class="hero-grid"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-corner tl"></div>
+      <div class="hero-corner tr"></div>
+      <div class="hero-corner bl"></div>
+      <div class="hero-corner br"></div>
+      <div class="hero-tag">раздача стиля</div>
+      <div class="hero-ver">VER. 1.0</div>
+      <div class="hero-title">
+        <div class="hero-title-main">фото<em>·</em><br>графия</div>
+        <div class="hero-title-sub">стиль · обработка · курсы</div>
+      </div>
     </div>
 
-    <div class="section-label">Категории</div>
+    <div class="cats-header">
+      <div class="cats-header-label">Категории</div>
+      <div class="cats-header-line"></div>
+    </div>
+
     <div class="category-grid">
-      ${CATEGORIES.map(cat => `
+      ${CATEGORIES.map((cat, i) => `
         <div class="cat-card" onclick="navigate('category','${cat.id}')">
+          <div class="cat-num">0${i + 1}</div>
           <span class="cat-emoji">${cat.emoji}</span>
           <div class="cat-name">${cat.name}</div>
           <div class="cat-count">${cat.posts.length} ${plural(cat.posts.length,'пост','поста','постов')}</div>
@@ -97,14 +114,14 @@ function screenHome() {
       `).join('')}
     </div>
 
-    <div class="section-label">Курс</div>
     <div class="course-banner" onclick="navigate('course')">
-      <div>
-        <div class="course-banner-tag">Видеокурс</div>
-        <div class="course-banner-title">${COURSE.title}</div>
-        <div class="course-banner-desc">${COURSE.lessons.length} уроков · ${free} бесплатно</div>
+      <div class="course-banner-grid"></div>
+      <div class="course-banner-tag">── Видеокурс</div>
+      <div class="course-banner-title">${COURSE.title}</div>
+      <div class="course-banner-meta">
+        <span>${COURSE.lessons.length} уроков · ${free} бесплатно</span>
+        <span class="course-banner-cta">Смотреть →</span>
       </div>
-      <div class="course-banner-arrow">›</div>
     </div>
   `;
 }
@@ -125,7 +142,7 @@ function screenCategory(catId) {
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">${cat.emoji}</div>
+      <div class="page-header-label">${cat.emoji} категория</div>
       <div class="page-header-title">${cat.name}</div>
       <div class="page-header-desc">${cat.desc}</div>
     </div>
@@ -171,7 +188,7 @@ function screenPost(postId) {
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">${cat.emoji}</div>
+      <div class="page-header-label">${cat.emoji} пост</div>
       <div class="page-header-title">${cat.name}</div>
     </div>
     <div class="post-detail">
@@ -203,7 +220,7 @@ function screenCourse() {
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">🎓</div>
+      <div class="page-header-label">🎓 видеокурс</div>
       <div class="page-header-title">${COURSE.title}</div>
       <div class="page-header-desc">${COURSE.desc}</div>
     </div>
@@ -249,8 +266,8 @@ function screenLesson(id) {
 
   return `
     <div class="page-header">
-      <div class="page-header-emoji">▶</div>
-      <div class="page-header-title">Урок ${idx + 1}. ${lesson.title}</div>
+      <div class="page-header-label">▶ урок ${idx + 1}</div>
+      <div class="page-header-title">${lesson.title}</div>
       <div class="page-header-desc">${lesson.duration}</div>
     </div>
     <div class="video-placeholder">

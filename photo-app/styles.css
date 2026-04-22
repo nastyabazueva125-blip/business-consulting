@@ -1,21 +1,21 @@
 /* ─── ПЕРЕМЕННЫЕ ─────────────────────────────────────────────────────────────── */
 :root {
-  --bg:         #0a0a0a;
-  --surface:    #141414;
-  --surface-2:  #1c1c1c;
-  --surface-3:  #242424;
-  --accent:     #d4a853;
-  --accent-bg:  rgba(212, 168, 83, 0.1);
-  --accent-brd: rgba(212, 168, 83, 0.2);
-  --text:       #f0f0f0;
-  --text-2:     #aaa;
-  --text-3:     #555;
-  --free:       #4ade80;
-  --free-bg:    rgba(74, 222, 128, 0.1);
-  --r:          12px;
-  --r-lg:       18px;
-  --safe-top:   env(safe-area-inset-top, 0px);
-  --safe-bot:   env(safe-area-inset-bottom, 0px);
+  --bg:        #080808;
+  --surface:   #111111;
+  --surface-2: #1a1a1a;
+  --red:       #ff1a1a;
+  --red-dim:   rgba(255, 26, 26, 0.12);
+  --red-brd:   rgba(255, 26, 26, 0.3);
+  --text:      #f0f0f0;
+  --text-2:    #888;
+  --text-3:    #444;
+  --grid:      rgba(255,255,255,0.06);
+  --free:      #4ade80;
+  --free-bg:   rgba(74, 222, 128, 0.1);
+  --r:         4px;
+  --r-lg:      6px;
+  --safe-top:  env(safe-area-inset-top, 0px);
+  --safe-bot:  env(safe-area-inset-bottom, 0px);
 }
 
 /* ─── БАЗА ───────────────────────────────────────────────────────────────────── */
@@ -25,8 +25,8 @@ html, body {
   height: 100%;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 15px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
@@ -53,188 +53,316 @@ html, body {
   z-index: 2;
   animation: slideIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-
 .screen.exit {
   animation: slideOut 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   pointer-events: none;
 }
 
-@keyframes slideIn {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(0); }
+@keyframes slideIn  { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-24%); opacity: 0; } }
+
+/* ─── HERO ───────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 52vw;
+  min-height: 200px;
+  max-height: 280px;
+  overflow: hidden;
+  background: #0f0f0f;
+  padding-top: var(--safe-top);
 }
 
-@keyframes slideOut {
-  from { transform: translateX(0); opacity: 1; }
-  to   { transform: translateX(-24%); opacity: 0; }
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  filter: saturate(0.7) contrast(1.1);
 }
 
-/* ─── ГЛАВНАЯ ────────────────────────────────────────────────────────────────── */
-.home-hero {
-  padding: 40px 20px 28px;
-  padding-top: calc(40px + var(--safe-top));
+.hero-photo-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1a0a0a 0%, #0a0a1a 50%, #0a0f0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  opacity: 0.3;
 }
 
-.home-title {
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  color: var(--text);
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.2) 60%, transparent 100%);
 }
 
-.home-title span { color: var(--accent); }
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
 
-.home-sub {
-  margin-top: 8px;
-  font-size: 12px;
-  color: var(--text-3);
-  letter-spacing: 1.5px;
+.hero-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+}
+.hero-corner.tl { top: 12px; left: 12px; border-top: 1.5px solid var(--red); border-left: 1.5px solid var(--red); }
+.hero-corner.tr { top: 12px; right: 12px; border-top: 1.5px solid var(--red); border-right: 1.5px solid var(--red); }
+.hero-corner.bl { bottom: 12px; left: 12px; border-bottom: 1.5px solid var(--red); border-left: 1.5px solid var(--red); }
+.hero-corner.br { bottom: 12px; right: 12px; border-bottom: 1.5px solid var(--red); border-right: 1.5px solid var(--red); }
+
+.hero-tag {
+  position: absolute;
+  top: calc(14px + var(--safe-top));
+  left: 20px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--red);
+  font-weight: 600;
   text-transform: uppercase;
+}
+
+.hero-ver {
+  position: absolute;
+  top: calc(14px + var(--safe-top));
+  right: 20px;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--text-3);
+  font-family: monospace;
+}
+
+.hero-title {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  right: 20px;
+}
+
+.hero-title-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  line-height: 0.92;
+  letter-spacing: 2px;
+  color: var(--text);
+  text-transform: uppercase;
+}
+
+.hero-title-main em {
+  color: var(--red);
+  font-style: normal;
+}
+
+.hero-title-sub {
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-2);
   font-weight: 500;
 }
 
-/* ─── МЕТКА СЕКЦИИ ───────────────────────────────────────────────────────────── */
-.section-label {
-  padding: 0 20px;
-  margin-bottom: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-3);
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+/* ─── СЕТКА КАТЕГОРИЙ ────────────────────────────────────────────────────────── */
+.cats-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px 12px;
 }
 
-/* ─── СЕТКА КАТЕГОРИЙ ────────────────────────────────────────────────────────── */
+.cats-header-line {
+  flex: 1;
+  height: 1px;
+  background: var(--grid);
+}
+
+.cats-header-label {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .category-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 1px;
   padding: 0 20px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+  background: var(--grid);
+  border: 1px solid var(--grid);
+  border-radius: var(--r-lg);
+  overflow: hidden;
 }
 
 .cat-card {
-  background: var(--surface);
-  border-radius: var(--r-lg);
-  padding: 20px 16px 18px;
+  background: var(--bg);
+  padding: 18px 14px;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  transition: background 0.15s, transform 0.12s;
-  user-select: none;
+  transition: background 0.12s;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 0;
+  background: var(--red);
+  transition: height 0.2s;
 }
 
 .cat-card:active {
-  background: var(--surface-2);
-  transform: scale(0.96);
+  background: var(--surface);
 }
 
-.cat-emoji {
-  font-size: 30px;
-  display: block;
+.cat-card:active::before {
+  height: 100%;
+}
+
+.cat-num {
+  font-family: monospace;
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 1px;
   margin-bottom: 10px;
 }
 
+.cat-emoji {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 8px;
+}
+
 .cat-name {
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
   color: var(--text);
+  line-height: 1;
   margin-bottom: 4px;
 }
 
 .cat-count {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-3);
 }
 
 /* ─── БАННЕР КУРСА ───────────────────────────────────────────────────────────── */
 .course-banner {
-  margin: 0 20px 8px;
-  background: linear-gradient(135deg, #1c1508 0%, #221c09 100%);
-  border: 1px solid var(--accent-brd);
+  margin: 0 20px 24px;
+  border: 1px solid var(--red-brd);
   border-radius: var(--r-lg);
   padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: #0d0505;
   transition: border-color 0.15s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
 }
 
 .course-banner:active {
   transform: scale(0.98);
-  border-color: rgba(212, 168, 83, 0.45);
+  border-color: var(--red);
+}
+
+.course-banner-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,26,26,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,26,26,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
 }
 
 .course-banner-tag {
-  display: inline-block;
-  background: var(--accent-bg);
-  color: var(--accent);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
+  font-size: 9px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 5px;
-  margin-bottom: 8px;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .course-banner-title {
-  font-size: 17px;
-  font-weight: 700;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 2px;
   color: var(--text);
-  margin-bottom: 4px;
-}
-
-.course-banner-desc {
-  font-size: 13px;
-  color: var(--text-2);
-}
-
-.course-banner-arrow {
-  font-size: 26px;
-  color: var(--accent);
-  flex-shrink: 0;
-  margin-left: 14px;
   line-height: 1;
+  margin-bottom: 6px;
+}
+
+.course-banner-meta {
+  font-size: 12px;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-banner-cta {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--red);
 }
 
 /* ─── ШАПКА СТРАНИЦЫ ─────────────────────────────────────────────────────────── */
 .page-header {
   padding: 16px 20px 14px;
   padding-top: calc(16px + var(--safe-top));
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--grid);
   position: sticky;
   top: 0;
   background: var(--bg);
   z-index: 10;
 }
 
-.page-header-emoji {
-  font-size: 22px;
+.page-header-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
   margin-bottom: 4px;
 }
 
 .page-header-title {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.4px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 1.5px;
+  color: var(--text);
+  line-height: 1;
 }
 
 .page-header-desc {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-3);
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 /* ─── СПИСОК ПОСТОВ ──────────────────────────────────────────────────────────── */
-.post-list { padding: 4px 0; }
+.post-list { padding: 0; }
 
 .post-item {
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--grid);
   cursor: pointer;
   transition: background 0.12s;
   -webkit-tap-highlight-color: transparent;
@@ -244,27 +372,23 @@ html, body {
 
 .post-thumb {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  background: var(--surface-2);
+  aspect-ratio: 16/9;
+  background: var(--surface);
   border-radius: var(--r);
   margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 28px;
   overflow: hidden;
 }
 
-.post-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.post-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
 .post-text {
   font-size: 14px;
   color: var(--text);
-  line-height: 1.55;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -273,37 +397,42 @@ html, body {
 
 .post-meta {
   margin-top: 8px;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-3);
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: monospace;
+  letter-spacing: 0.5px;
 }
 
 .post-badge {
   background: var(--surface-2);
-  padding: 2px 7px;
-  border-radius: 4px;
-  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 10px;
   color: var(--text-2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-/* ─── ДЕТАЛЬНЫЙ ПРОСМОТР ПОСТА ───────────────────────────────────────────────── */
+/* ─── ДЕТАЛЬНЫЙ ПРОСМОТР ─────────────────────────────────────────────────────── */
 .post-detail { padding: 20px; }
 
 .post-detail-date {
-  font-size: 11px;
+  font-family: monospace;
+  font-size: 10px;
   color: var(--text-3);
+  letter-spacing: 1px;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
   margin-bottom: 16px;
 }
 
 .post-detail-media {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  background: var(--surface-2);
-  border-radius: var(--r-lg);
+  aspect-ratio: 4/3;
+  background: var(--surface);
+  border-radius: var(--r);
   margin-bottom: 18px;
   display: flex;
   align-items: center;
@@ -312,11 +441,7 @@ html, body {
   overflow: hidden;
 }
 
-.post-detail-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.post-detail-media img { width: 100%; height: 100%; object-fit: cover; }
 
 .post-detail-text {
   font-size: 15px;
@@ -327,31 +452,44 @@ html, body {
 /* ─── КУРС ───────────────────────────────────────────────────────────────────── */
 .course-stats {
   display: flex;
-  gap: 20px;
-  padding: 16px 20px 4px;
+  gap: 0;
+  padding: 16px 20px 0;
+  border-bottom: 1px solid var(--grid);
 }
+
+.course-stat {
+  flex: 1;
+  padding: 12px 0;
+  border-right: 1px solid var(--grid);
+  text-align: center;
+}
+
+.course-stat:last-child { border-right: none; }
 
 .course-stat strong {
   display: block;
-  font-size: 20px;
-  font-weight: 700;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
   color: var(--text);
-  line-height: 1.2;
+  letter-spacing: 1px;
+  line-height: 1;
 }
 
 .course-stat span {
-  font-size: 12px;
+  font-size: 10px;
   color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
-.lesson-list { padding: 4px 20px 0; }
+.lesson-list { padding: 0 20px; }
 
 .lesson-item {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--grid);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: opacity 0.12s;
@@ -360,26 +498,28 @@ html, body {
 .lesson-item:active { opacity: 0.6; }
 
 .lesson-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   flex-shrink: 0;
+  font-family: monospace;
 }
 
 .lesson-icon.free {
   background: var(--free-bg);
   color: var(--free);
+  border: 1px solid rgba(74,222,128,0.2);
 }
 
 .lesson-icon.locked {
-  background: var(--surface-2);
+  background: var(--surface);
   color: var(--text-3);
-  font-size: 16px;
+  border: 1px solid var(--grid);
 }
 
 .lesson-info { flex: 1; min-width: 0; }
@@ -397,57 +537,59 @@ html, body {
 .lesson-title.dimmed { color: var(--text-2); }
 
 .lesson-meta {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-3);
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: monospace;
+  letter-spacing: 0.5px;
 }
 
 .free-badge {
   color: var(--free);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
 }
 
 /* ─── КНОПКА ПОКУПКИ ─────────────────────────────────────────────────────────── */
 .buy-section {
   margin: 24px 20px 8px;
-  text-align: center;
 }
 
 .buy-price {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: -0.5px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--red);
+  letter-spacing: 2px;
+  line-height: 1;
 }
 
 .buy-note {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-3);
-  margin: 4px 0 18px;
+  margin: 6px 0 18px;
+  letter-spacing: 0.5px;
 }
 
 .buy-btn {
   width: 100%;
-  padding: 17px;
-  background: var(--accent);
-  color: #111;
+  padding: 16px;
+  background: var(--red);
+  color: #fff;
   border: none;
-  border-radius: var(--r-lg);
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
+  border-radius: var(--r);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
   cursor: pointer;
   transition: opacity 0.12s, transform 0.12s;
   -webkit-tap-highlight-color: transparent;
 }
 
-.buy-btn:active {
-  opacity: 0.85;
-  transform: scale(0.98);
-}
+.buy-btn:active { opacity: 0.85; transform: scale(0.98); }
 
 /* ─── ПУСТОЙ ЭКРАН ───────────────────────────────────────────────────────────── */
 .empty-state {
@@ -455,40 +597,39 @@ html, body {
   text-align: center;
 }
 
-.empty-state-emoji { font-size: 52px; margin-bottom: 16px; }
+.empty-state-emoji { font-size: 48px; margin-bottom: 16px; }
 
 .empty-state-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 2px;
   color: var(--text-2);
   margin-bottom: 8px;
 }
 
-.empty-state-desc {
-  font-size: 14px;
-  color: var(--text-3);
-  line-height: 1.65;
-}
+.empty-state-desc { font-size: 13px; color: var(--text-3); line-height: 1.65; }
 
 /* ─── УРОК ───────────────────────────────────────────────────────────────────── */
 .video-placeholder {
   margin: 20px;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16/9;
   background: var(--surface);
-  border-radius: var(--r-lg);
+  border-radius: var(--r);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--grid);
 }
 
-.video-placeholder-icon { font-size: 48px; }
+.video-placeholder-icon { font-size: 44px; }
 
 .video-placeholder-text {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* ─── СКРОЛЛБАР ──────────────────────────────────────────────────────────────── */
