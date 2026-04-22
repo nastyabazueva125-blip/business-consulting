@@ -135,20 +135,18 @@ function getCatIcon(catId) {
 
 function screenHome() {
   return `
-    <!-- Тёмный топ: заголовок + пилюля -->
-    <div class="home-top">
-      <div class="home-title">РАЗДАЧА<br>СТИЛЯ</div>
-      <div class="single-pill">
-        ${CATEGORIES.map(cat => `
-          <button class="spill-btn" onclick="navigate('category','${cat.id}')">${cat.name.toUpperCase()}</button>
-        `).join('')}
-      </div>
-    </div>
-
-    <!-- Полное фото -->
+    <!-- Фото с заголовком и пилюлей поверх -->
     <div class="photo-section">
       <img class="photo-section-img" src="hero.jpg" alt="">
       <div class="photo-section-gradient"></div>
+      <div class="photo-overlay">
+        <div class="home-title">РАЗДАЧА<br>СТИЛЯ</div>
+        <div class="single-pill">
+          ${CATEGORIES.map(cat => `
+            <button class="spill-btn" onclick="navigate('category','${cat.id}')">${cat.name.toUpperCase()}</button>
+          `).join('')}
+        </div>
+      </div>
       <div class="photo-section-label">
         <span class="photo-section-tag">● PHOTO.BLOG<br>© 2025—∞</span>
         <span class="photo-section-desc">авторский блог<br>о фотографии</span>
