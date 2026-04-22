@@ -135,43 +135,42 @@ function getCatIcon(catId) {
 
 function screenHome() {
   return `
-    <!-- Hero фото -->
-    <div class="hero-section">
-      <img class="hero-img" src="hero.jpg" alt="">
-      <div class="hero-gradient"></div>
-      <div class="hero-header">
-        <div class="hero-title">
-          <span class="hero-fill">РАЗДАЧА</span>
-          <span class="hero-outline">СТИЛЯ</span>
-        </div>
-        <div class="hero-badge">● PHOTO.BLOG</div>
-      </div>
-    </div>
-
-    <!-- Пилюли категорий -->
-    <div class="pill-nav-wrap">
-      <div class="pill-nav">
+    <!-- Тёмный топ: заголовок + пилюля -->
+    <div class="home-top">
+      <div class="home-title">РАЗДАЧА<br>СТИЛЯ</div>
+      <div class="single-pill">
         ${CATEGORIES.map(cat => `
-          <button class="pill-item" onclick="navigate('category','${cat.id}')">${cat.name.toUpperCase()}</button>
+          <button class="spill-btn" onclick="navigate('category','${cat.id}')">${cat.name.toUpperCase()}</button>
         `).join('')}
       </div>
     </div>
 
-    <!-- Карточки категорий -->
-    <div class="cat-cards">
-      ${CATEGORIES.map(cat => `
-        <div class="cat-card" onclick="navigate('category','${cat.id}')">
-          <div class="cat-card-icon-wrap">${getCatIcon(cat.id)}</div>
-          <div class="cat-card-name">${cat.name.toUpperCase()}</div>
-          <div class="cat-card-meta">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
+    <!-- Полное фото -->
+    <div class="photo-section">
+      <img class="photo-section-img" src="hero.jpg" alt="">
+      <div class="photo-section-gradient"></div>
+      <div class="photo-section-label">
+        <span class="photo-section-tag">● PHOTO.BLOG<br>© 2025—∞</span>
+        <span class="photo-section-desc">авторский блог<br>о фотографии</span>
+      </div>
+    </div>
+
+    <!-- Off-White тайлы -->
+    <div class="ow-grid">
+      ${CATEGORIES.map((cat, i) => `
+        <div class="ow-tile" onclick="navigate('category','${cat.id}')">
+          <div class="ow-tile-num">0${i + 1}</div>
+          <div class="ow-tile-icon">${getCatIcon(cat.id)}</div>
+          <div class="ow-tile-name">${cat.name.toUpperCase()}</div>
+          <div class="ow-tile-meta">${cat.posts.length} ${plural(cat.posts.length, 'пост', 'поста', 'постов')}</div>
         </div>
       `).join('')}
     </div>
 
-    <!-- Кнопка курса -->
+    <!-- Курс -->
     <div class="home-course-wrap">
       <button class="home-course-btn" onclick="tabNavigate('course')">
-        &gt;_ ОТКРЫТЬ КУРС — ${COURSE.price.toLocaleString('ru-RU')} ${COURSE.currency}
+        &gt;_ КУРС — ${COURSE.price.toLocaleString('ru-RU')} ${COURSE.currency}
       </button>
     </div>
   `;
