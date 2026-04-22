@@ -146,7 +146,7 @@ function screenHome() {
         <div class="banner-tag">VER. 1.0</div>
         <div class="banner-title">
           <div><span class="fill">РАЗДАЧА</span></div>
-          <div><span class="outline">СТИЛЯ</span></div>
+          <div><span class="outline">СТИЛЯ</span><span class="cursor">_</span></div>
         </div>
       </div>
 

@@ -4,15 +4,17 @@
   --ink:      #0a0a0a;
   --bg:       #080808;
   --border:   rgba(255, 255, 255, 0.1);
-  --text:     #f0f0f0;
-  --text-2:   #888;
+  --text:     #e8e8e0;
+  --text-2:   #777;
   --text-3:   #333;
   --free:     #4ade80;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bot: env(safe-area-inset-bottom, 0px);
+  --font-type: 'PT Mono', 'Courier New', Courier, monospace;
+  --font-deco: 'Special Elite', 'Courier New', Courier, monospace;
 }
 
-/* ─── ЗЕРНО ──────────────────────────────────────────────────────────────────── */
+/* ─── ТЕКСТУРНЫЕ ОВЕРЛЕИ ─────────────────────────────────────────────────────── */
 .grain-svg { position: fixed; width: 0; height: 0; }
 
 .grain {
@@ -22,23 +24,48 @@
   height: 200%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.08;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 260px 260px;
-  animation: grain-move 7s steps(8) infinite;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  animation: grain-move 6s steps(8) infinite;
 }
 
 @keyframes grain-move {
   0%   { transform: translate(0, 0); }
-  12%  { transform: translate(-4%, -4%); }
-  25%  { transform: translate(-8%, 4%); }
-  37%  { transform: translate(4%, -8%); }
-  50%  { transform: translate(-4%, 12%); }
-  62%  { transform: translate(-8%, 4%); }
-  75%  { transform: translate(12%, 0); }
-  87%  { transform: translate(0, 8%); }
-  100% { transform: translate(4%, 0); }
+  12%  { transform: translate(-5%, -3%); }
+  25%  { transform: translate(-9%, 5%); }
+  37%  { transform: translate(5%, -9%); }
+  50%  { transform: translate(-3%, 13%); }
+  62%  { transform: translate(-9%, 3%); }
+  75%  { transform: translate(13%, 0); }
+  87%  { transform: translate(0, 9%); }
+  100% { transform: translate(5%, 0); }
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 3px
+  );
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(ellipse at center,
+    transparent 35%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
 }
 
 /* ─── БАЗА ───────────────────────────────────────────────────────────────────── */
@@ -48,8 +75,8 @@ html, body {
   height: 100%;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 14px;
+  font-family: var(--font-type);
+  font-size: 13px;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
 }
@@ -98,7 +125,7 @@ html, body {
   position: absolute;
   top: calc(12px + var(--safe-top));
   right: 14px;
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 9px;
   letter-spacing: 2px;
   color: var(--ink);
@@ -106,21 +133,51 @@ html, body {
 }
 
 .banner-title {
-  font-family: 'Bebas Neue', sans-serif;
-  line-height: 0.86;
-  letter-spacing: 1px;
-  margin-top: 16px;
+  font-family: var(--font-type);
+  line-height: 0.92;
+  letter-spacing: -1px;
+  margin-top: 12px;
+  font-weight: bold;
 }
 
 .banner-title > div {
-  font-size: 20vw;
+  font-size: 15vw;
   margin: 0;
 }
 
-.banner-title .fill    { color: var(--ink); }
+.banner-title .fill {
+  color: var(--ink);
+  display: inline-block;
+  animation: title-glitch 7s linear infinite;
+}
+
 .banner-title .outline {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--ink);
+  display: inline-block;
+  animation: title-glitch 7s linear infinite 0.15s;
+}
+
+.banner-title .cursor {
+  color: var(--ink);
+  animation: cursor-blink 1s step-end infinite;
+  font-weight: normal;
+  margin-left: 2px;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes title-glitch {
+  0%, 90%, 100% { text-shadow: none; transform: none; }
+  90.5% { text-shadow:  4px 0 var(--red), -4px 0 #00e5ff; transform: translateX(-3px); }
+  91%   { text-shadow: -5px 0 var(--red),  5px 0 #00e5ff; transform: translateX(3px); }
+  91.5% { text-shadow:  3px 0 #00e5ff,    -3px 0 var(--red); transform: none; }
+  92%   { text-shadow: none; transform: none; }
+  95%   { text-shadow: -2px 0 var(--red), 2px 0 #00e5ff; transform: translateX(1px); }
+  95.3% { text-shadow: none; transform: none; }
 }
 
 /* ─── ОСНОВНАЯ СЕТКА ─────────────────────────────────────────────────────────── */
@@ -145,15 +202,16 @@ html, body {
 }
 
 .home-stat-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 46px;
+  font-family: var(--font-type);
+  font-size: 32px;
+  font-weight: bold;
   line-height: 1;
   color: var(--ink);
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .home-stat-lbl {
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 8px;
   letter-spacing: 2.5px;
   color: var(--ink);
@@ -194,16 +252,17 @@ html, body {
 }
 
 .cat-tile-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 19px;
+  font-family: var(--font-type);
+  font-size: 13px;
+  font-weight: bold;
   letter-spacing: 0.5px;
   color: var(--ink);
-  line-height: 1.1;
+  line-height: 1.3;
   margin-bottom: 3px;
 }
 
 .cat-tile-count {
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 9px;
   letter-spacing: 1px;
   color: var(--ink);
@@ -350,7 +409,7 @@ html, body {
 .desc-cell {
   grid-column: 1 / -1;
   padding: 14px 14px 16px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-type);
   font-size: 12px;
   line-height: 1.6;
   color: var(--ink);
@@ -370,7 +429,7 @@ html, body {
   position: relative;
   background: transparent;
   border: none;
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2.5px;
@@ -398,7 +457,7 @@ html, body {
 .tech-button .br.br { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
 
 .version {
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 9px;
   letter-spacing: 2px;
   color: var(--ink);
@@ -420,7 +479,7 @@ html, body {
 }
 
 .page-header-eyebrow {
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 9px;
   letter-spacing: 2px;
   color: var(--red);
@@ -430,11 +489,12 @@ html, body {
 }
 
 .page-header-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 1.5px;
+  font-family: var(--font-type);
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
   color: var(--text);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .page-header-desc {
@@ -482,7 +542,7 @@ html, body {
   margin-top: 8px;
   font-size: 10px;
   color: var(--text-3);
-  font-family: monospace;
+  font-family: var(--font-type);
   letter-spacing: 0.5px;
   display: flex;
   gap: 8px;
@@ -525,9 +585,10 @@ html, body {
 
 .course-stat strong {
   display: block;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 1px;
+  font-family: var(--font-type);
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 2px;
   color: var(--text);
   line-height: 1;
 }
@@ -562,7 +623,7 @@ html, body {
   font-size: 12px;
   flex-shrink: 0;
   border: 1px solid var(--border);
-  font-family: monospace;
+  font-family: var(--font-type);
 }
 
 .lesson-icon.free   { border-color: rgba(74,222,128,0.3); color: var(--free); }
@@ -585,21 +646,22 @@ html, body {
 .lesson-meta {
   font-size: 10px;
   color: var(--text-3);
-  font-family: monospace;
+  font-family: var(--font-type);
   letter-spacing: 0.5px;
   display: flex;
   gap: 8px;
 }
 
-.free-badge { color: var(--free); font-size: 10px; font-weight: 600; font-family: 'Inter', sans-serif; }
+.free-badge { color: var(--free); font-size: 10px; font-weight: 600; font-family: var(--font-type); }
 
 .buy-section { padding: 20px 16px 8px; }
 
 .buy-price {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 52px;
+  font-family: var(--font-type);
+  font-size: 42px;
+  font-weight: bold;
   color: var(--red);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   line-height: 1;
 }
 
@@ -616,8 +678,9 @@ html, body {
   background: var(--red);
   color: #fff;
   border: none;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
+  font-family: var(--font-type);
+  font-size: 16px;
+  font-weight: bold;
   letter-spacing: 3px;
   cursor: pointer;
 }
@@ -626,7 +689,7 @@ html, body {
 
 .empty-state { padding: 56px 20px; text-align: center; }
 .empty-state-emoji { font-size: 44px; margin-bottom: 14px; }
-.empty-state-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--text-2); margin-bottom: 8px; }
+.empty-state-title { font-family: var(--font-type); font-size: 18px; font-weight: bold; letter-spacing: 2px; color: var(--text-2); margin-bottom: 8px; }
 .empty-state-desc { font-size: 12px; color: var(--text-3); line-height: 1.65; }
 
 .video-placeholder {
@@ -740,9 +803,10 @@ html, body {
 }
 
 .glitch-caption-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 30px;
-  letter-spacing: 3px;
+  font-family: var(--font-type);
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 4px;
   color: #fff;
   text-shadow: 3px 0 #E8342C, -3px 0 #00ffff;
   line-height: 1;
@@ -750,7 +814,7 @@ html, body {
 }
 
 .glitch-caption-tag {
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 9px;
   letter-spacing: 2px;
   color: var(--red);
@@ -817,13 +881,13 @@ html, body {
 .tab-btn.active::before { transform: scaleX(1); }
 
 .tab-icon {
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 16px;
   line-height: 1;
 }
 
 .tab-label {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-type);
   font-size: 9px;
   letter-spacing: 1.5px;
   line-height: 1;
@@ -857,7 +921,7 @@ html, body {
 .feed-cat-card:active { background: rgba(255,255,255,0.04); }
 
 .feed-cat-num {
-  font-family: monospace;
+  font-family: var(--font-type);
   font-size: 9px;
   color: var(--text-3);
   letter-spacing: 1px;
@@ -870,11 +934,12 @@ html, body {
 }
 
 .feed-cat-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
+  font-family: var(--font-type);
+  font-size: 14px;
+  font-weight: bold;
   letter-spacing: 1px;
   color: var(--text);
-  line-height: 1;
+  line-height: 1.2;
   margin-bottom: 4px;
 }
 
@@ -888,6 +953,6 @@ html, body {
 .feed-cat-count {
   font-size: 9px;
   color: var(--text-3);
-  font-family: monospace;
+  font-family: var(--font-type);
   letter-spacing: 0.5px;
 }
