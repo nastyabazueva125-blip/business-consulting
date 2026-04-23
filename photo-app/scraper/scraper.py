@@ -56,7 +56,8 @@ TOPIC_MAP = {
     "general":            "general",
 }
 
-MEDIA_DIR = Path("media")
+# Сохраняем медиа в photo-app/media/ (на уровень выше scraper/)
+MEDIA_DIR = Path(__file__).parent.parent / "media"
 MEDIA_DIR.mkdir(exist_ok=True)
 
 # ─── Хелперы ──────────────────────────────────────────────────────────────────
@@ -136,10 +137,11 @@ async def scrape(client: TelegramClient):
 
         try:
             if DOWNLOAD_PHOTOS and isinstance(msg.media, MessageMediaPhoto):
-                path = MEDIA_DIR / f"photo_{msg.id}.jpg"
+                filename = f"photo_{msg.id}.jpg"
+                path = MEDIA_DIR / filename
                 if not path.exists():
                     await client.download_media(msg, file=str(path))
-                media_path = str(path)
+                media_path = f"media/{filename}"  # веб-путь относительно photo-app/
                 media_type = "photo"
 
             elif isinstance(msg.media, MessageMediaDocument):
@@ -150,10 +152,11 @@ async def scrape(client: TelegramClient):
                 elif mime.startswith("image"):
                     media_type = "image"
                     if DOWNLOAD_PHOTOS:
-                        path = MEDIA_DIR / f"img_{msg.id}.jpg"
+                        filename = f"img_{msg.id}.jpg"
+                        path = MEDIA_DIR / filename
                         if not path.exists():
                             await client.download_media(msg, file=str(path))
-                        media_path = str(path)
+                        media_path = f"media/{filename}"
 
             elif isinstance(msg.media, MessageMediaWebPage):
                 media_type = "webpage"
