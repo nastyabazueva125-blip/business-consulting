@@ -64,21 +64,103 @@ const CATEGORIES = [
     id: 'recipes_editing',
     name: 'Обработка',
     emoji: '🎨',
-    desc: 'Пресеты, ретушь, цвет',
+    desc: 'Приложения, фильтры, текстуры',
     posts: [
       {
-        id: 4,
-        date: '2025-12-23',
-        text: 'Рецепт образа:\n\n• Тёплая кожа\n• Холодные тени\n• Поднятые тёмные тона\n\nВ Lightroom: Shadows +20, Highlights −30, Temp +200, затем HSL — жёлтый и оранжевый +Saturation.',
-        media_type: null,
-        media_path: null
+        id: 528,
+        date: '2025-12-17',
+        text: 'необычная обработка фотки на телефоне за 1 мин , мне нравится такое использовать \n\nв видео туториал 🤍',
+        media_type: 'video',
+        media_path: 'media/109_528_video.mp4',
+        photos: ['media/109_527_photo.jpg']
       },
       {
-        id: 5,
-        date: '2025-12-17',
-        text: 'Порядок обработки важен:\n\n1. Экспозиция и контраст\n2. Баланс белого\n3. Цветовая коррекция\n4. Локальные правки\n5. Резкость\n\nНикогда не наоборот.',
-        media_type: null,
-        media_path: null
+        id: 431,
+        date: '2025-12-01',
+        text: 'такс, щас такое покажу!!!!\nдевочки, обязательно пробуем!\n\nфотка на пляже из фотки на фоне шторы\n\n1) фоткаемся на фоне шторы в летнем луке\n2) заходим в hypic (бесплатный)\n3) выбираем ai эффекты — закат, рассвет и прочее\n4) сверху обрабатываем ещё где-нибудь\n\nи просто посмотрите как красиво получается!',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_431_photo.jpg', 'media/109_430_photo.jpg', 'media/109_429_photo.jpg', 'media/109_428_photo.jpg']
+      },
+      {
+        id: 404,
+        date: '2025-11-23',
+        text: 'Как сделать такое фото\n\n1) заходим в higgsfield\n2) нажать создать изображение\n3) выбрать nano banana pro\n4) ввести промпт ниже\n5) приложить свою фотку, где хорошо видно лицо\n\nPrompt: Transform my attached photo into a futuristic high-fashion editorial image. Ultra-bright studio lighting, clean white background, high contrast. Strong chromatic aberration along all edges. Motion blur streaks on hair. Dramatic elongated low-angle perspective. Keep my real face exactly the same.',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_404_photo.jpg', 'media/109_403_photo.jpg']
+      },
+      {
+        id: 381,
+        date: '2025-11-19',
+        text: '❤️ мое топ приложение для визуала. даже если вы не знаете ничего в дизайне, можно делать стильно\n\nbazaart — очень советую, очень много классных и стильных шаблонов и удобная функция обрезания фона\n\nвот пример с шаблоном art alert',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_381_photo.jpg', 'media/109_380_photo.jpg']
+      },
+      {
+        id: 289,
+        date: '2025-11-12',
+        text: '💧 текстурки для фото и визуала постов\n(я часто их накладываю)',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_289_photo.jpg', 'media/109_288_photo.jpg', 'media/109_287_photo.jpg', 'media/109_286_photo.jpg']
+      },
+      {
+        id: 276,
+        date: '2025-11-10',
+        text: 'идея фото просто пока готовим супчик 🍎\n\nфильтр на скрине, приложение meitu',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_276_photo.jpg', 'media/109_275_photo.jpg', 'media/109_274_photo.jpg', 'media/109_273_photo.jpg']
+      },
+      {
+        id: 226,
+        date: '2025-10-26',
+        text: 'ой девочки\n\nai фотосессия в higgsfield\nэто бесплатно и некоторые фото реально правдоподобны\n\nинструкция ниже 😈',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_226_photo.jpg', 'media/109_225_photo.jpg', 'media/109_224_photo.jpg', 'media/109_223_photo.jpg']
+      },
+      {
+        id: 214,
+        date: '2025-10-20',
+        text: 'ой девочки\n\n🫀приложение meitu\n\nвсе эти ai эффекты просто афигеть какие крутые. просто посмотрите что делают\n\n🎀свечение сзади особенно хорошо\nскрин эффектов приложила, пробуйте все',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_214_photo.jpg', 'media/109_213_photo.jpg', 'media/109_212_photo.jpg', 'media/109_211_photo.jpg']
+      },
+      {
+        id: 175,
+        date: '2025-10-14',
+        text: '❤️\n\nприложение: Fomz\n\n📸DV-core ↓\nсоздает очень крутой эффект блюра и загадочной дымки\n\n#обработка',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_175_photo.jpg']
+      },
+      {
+        id: 167,
+        date: '2025-10-11',
+        text: 'такс, есть приложение аналог dazz cam ❤️\n\nназвание: Fomz\n\n📷 4s-mode ↓\nафигенный фильтр который имитирует камеру старого айфона 4s\n\n#обработка',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_167_photo.jpg']
+      },
+      {
+        id: 122,
+        date: '2025-10-06',
+        text: 'такс\nделюсь обработкой!!\n\nопять наш любимый prequel\nэффект и фильтр в картинке',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_122_photo.jpg', 'media/109_121_photo.jpg', 'media/109_120_photo.jpg', 'media/109_119_photo.jpg']
+      },
+      {
+        id: 112,
+        date: '2025-10-05',
+        text: 'так, это поиграться\n\nai эффект в hypic (в картинке)\nбесплатно кстати',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_112_photo.jpg', 'media/109_111_photo.jpg', 'media/109_110_photo.jpg']
       }
     ]
   },
