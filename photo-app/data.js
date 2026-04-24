@@ -72,6 +72,7 @@ const CATEGORIES = [
         text: 'необычная обработка фотки на телефоне за 1 мин , мне нравится такое использовать \n\nв видео туториал 🤍',
         media_type: 'video',
         media_path: 'media/109_528_video.mp4',
+        poster:     'media/thumb_528.jpg',
         photos: ['media/109_527_photo.jpg']
       },
       {
@@ -159,49 +160,56 @@ const CATEGORIES = [
         date: '2026-01-06',
         text: 'как быть узнаваемым в блоге\n\nчтобы люди листая ленту понимали, «это она» \n\nличный стиль и бренд, как собрать свою уникальность',
         media_type: 'video',
-        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_550_IMG_0529.MOV'
+        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_550_IMG_0529.MOV',
+        poster:     'media/thumb_550.jpg'
       },
       {
         id: 538,
         date: '2025-12-28',
         text: 'девчонкииии!! это супер полезный урок по фреймингу. делюсь своими секретами съемки',
         media_type: 'video',
-        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_538_video.mp4'
+        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_538_video.mp4',
+        poster:     'media/thumb_538.jpg'
       },
       {
         id: 523,
         date: '2025-12-11',
         text: 'как монетизировать фото, блог и визуал \n\nтут рассказала на чем я зарабатывала во всех этих нишах\n\nкак сразу поставить $200 за фотосессию, \nна чем можно зарабатывать 80к в день \n\nпросто мой опыт и предложения вам для доп заработка 🌟',
         media_type: 'video',
-        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_523_video.mp4'
+        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_523_video.mp4',
+        poster:     'media/thumb_523.jpg'
       },
       {
         id: 481,
         date: '2025-12-01',
         text: 'super clamp называется \n\nэто прям вместо вашего фотографа',
         media_type: 'video',
-        media_path: 'media/64_481_video_note.mp4'
+        media_path: 'media/64_481_video_note.mp4',
+        poster:     'media/thumb_481.jpg'
       },
       {
         id: 410,
         date: '2025-11-27',
         text: 'урок по позингу в моменте сбора 👄\n\nя очень очень очень рекомендую вам прям подойти к зеркалу и повторить как некий танец 🤩\n\nжелательно в образе на каблучках, чтобы кайфануть от себя \n\nкогда вы телом запоминаете позы, вы можете их автоматически вспомнить в нужный момент!',
         media_type: 'video',
-        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_410_video.mp4'
+        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_410_video.mp4',
+        poster:     'media/thumb_410.jpg'
       },
       {
         id: 385,
         date: '2025-11-20',
         text: 'ВИДЕОУРОК «КАК СОЗДАВАТЬ ДИЗАЙН ПОСТОВ НА ТЕЛЕФОНЕ»\n\nрассказала про карусели, оформление, как работать в bazart, и приемы для оформления \n\n#визуал #посты',
         media_type: 'video',
-        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_385_video.mp4'
+        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_385_video.mp4',
+        poster:     'media/thumb_385.jpg'
       },
       {
         id: 271,
         date: '2025-11-09',
         text: '✨как делать ai фотки ✨подробный урок\n\nтут уже с промптами учимся создавать кастомные фотки, как я выкладывала с розовыми лошадьми в стиле сюрреализма  💧\n\nготовые промпты будут ниже 🌼',
         media_type: 'video',
-        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_271_video.mp4'
+        media_path: 'https://github.com/nastyabazueva125-blip/business-consulting/releases/download/v1.0/64_271_video.mp4',
+        poster:     'media/thumb_271.jpg'
       },
       {
         id: 172,

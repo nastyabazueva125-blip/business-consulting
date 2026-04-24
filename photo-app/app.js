@@ -86,6 +86,12 @@ function render(screen, params, direction) {
 
   app.appendChild(el);
 
+  el.querySelectorAll('video').forEach(v => {
+    v.addEventListener('play', () => {
+      const hint = v.closest('.video-wrap')?.querySelector('.video-load-hint');
+      if (hint) hint.style.display = 'none';
+    });
+  });
 }
 
 // ─── 3D ЭФФЕКТ НА ФОТО ───────────────────────────────────────────────────────
@@ -260,7 +266,10 @@ function screenPost(postId) {
   const media = photos.length
     ? photos.map(p => `<div class="post-detail-media"><img src="${p}" loading="lazy"></div>`).join('')
     : post.media_type === 'video' && post.media_path
-    ? `<div class="post-detail-media"><video src="${post.media_path}" controls playsinline></video></div>`
+    ? `<div class="post-detail-media video-wrap">
+         <video src="${post.media_path}" controls playsinline preload="none"${post.poster ? ` poster="${post.poster}"` : ''}></video>
+         <div class="video-load-hint">▶ Нажми для просмотра<br><span>Видео большое — загрузка может занять время</span></div>
+       </div>`
     : post.media_type === 'video'
     ? `<div class="post-detail-media post-detail-media-video"><span>▶ видео</span></div>`
     : '';
