@@ -128,6 +128,7 @@ function getCatIcon(catId) {
     recipes_photo:   '<div class="cicon icon-lens"></div>',
     recipes_editing: '<div class="cicon icon-diamond"></div>',
     video_lessons:   '<div class="cicon icon-play"></div>',
+    ai:              '<div class="cicon icon-play"></div>',
     watched:         '<div class="cicon icon-eye"></div>',
   };
   return map[catId] || '<div class="cicon icon-lens"></div>';

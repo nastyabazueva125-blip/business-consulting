@@ -83,14 +83,6 @@ const CATEGORIES = [
         photos: ['media/109_431_photo.jpg', 'media/109_430_photo.jpg', 'media/109_429_photo.jpg', 'media/109_428_photo.jpg']
       },
       {
-        id: 404,
-        date: '2025-11-23',
-        text: 'Как сделать такое фото\n\n1) заходим в higgsfield\n2) нажать создать изображение\n3) выбрать nano banana pro\n4) ввести промпт ниже\n5) приложить свою фотку, где хорошо видно лицо\n\nPrompt: Transform my attached photo into a futuristic high-fashion editorial image. Ultra-bright studio lighting, clean white background, high contrast. Strong chromatic aberration along all edges. Motion blur streaks on hair. Dramatic elongated low-angle perspective. Keep my real face exactly the same.',
-        media_type: 'photo',
-        media_path: null,
-        photos: ['media/109_404_photo.jpg', 'media/109_403_photo.jpg']
-      },
-      {
         id: 381,
         date: '2025-11-19',
         text: '❤️ мое топ приложение для визуала. даже если вы не знаете ничего в дизайне, можно делать стильно\n\nbazaart — очень советую, очень много классных и стильных шаблонов и удобная функция обрезания фона\n\nвот пример с шаблоном art alert',
@@ -113,14 +105,6 @@ const CATEGORIES = [
         media_type: 'photo',
         media_path: null,
         photos: ['media/109_276_photo.jpg', 'media/109_275_photo.jpg', 'media/109_274_photo.jpg', 'media/109_273_photo.jpg']
-      },
-      {
-        id: 226,
-        date: '2025-10-26',
-        text: 'ой девочки\n\nai фотосессия в higgsfield\nэто бесплатно и некоторые фото реально правдоподобны\n\nинструкция ниже 😈',
-        media_type: 'photo',
-        media_path: null,
-        photos: ['media/109_226_photo.jpg', 'media/109_225_photo.jpg', 'media/109_224_photo.jpg', 'media/109_223_photo.jpg']
       },
       {
         id: 214,
@@ -225,6 +209,54 @@ const CATEGORIES = [
         text: '⭐️ первое задание: сформируй свой визуальный код\n\n✔️ цель:\nсоздать личную визуальную карту (vibecore), которая отражает твою индивидуальность, эстетику и внутренние коды\n\n1️⃣открой pinterest и начни собирать изображения, которые тебя вдохновляют\n\n2️⃣собери всё, что тебе внутренне откликается — позы, цвет, свет, настроение кадра, фактуры\n\n3️⃣анализируй, почему тебе это нравится: «что именно меня зацепило?»\n\n4️⃣сохрани и оформи свою подборку — это и есть твой визуальный ДНК',
         media_type: null,
         media_path: null
+      }
+    ]
+  },
+  {
+    id: 'ai',
+    name: 'AI',
+    emoji: '🤖',
+    desc: 'Нейросети, промпты, AI-фото',
+    posts: [
+      {
+        id: 526,
+        date: '2025-12-15',
+        text: '💌 кстати, многие из вас мне лично писали и спрашивали, какими я пользуюсь нейронками\n\nв целом, можно всегда писать сюда, я отвечаю на все запросы\n\nно вот мой список:\n— Higgsfield (AI фото и видео)\n— Meitu (AI эффекты)\n— Hypic (AI фото)\n— ChatGPT / Claude (тексты, идеи)\n— Midjourney (арт)',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/509_526_photo.jpg']
+      },
+      {
+        id: 518,
+        date: '2025-12-08',
+        text: 'в ленте постоянно вижу какие-то колхозные ai фото 🙄 если честно\n\nпоэтому придумала свой промпт!\n\nзаписываем, повторяем ↓',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/509_518_photo.jpg', 'media/509_519_photo.jpg', 'media/509_520_photo.jpg']
+      },
+      {
+        id: 513,
+        date: '2025-12-08',
+        text: 'технология та же, промпт другой:\n\nUse the uploaded winter Christmas street photograph as the primary visual reference.',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/509_513_photo.jpg', 'media/509_512_photo.jpg']
+      },
+      {
+        id: 404,
+        date: '2025-11-23',
+        text: 'Как сделать такое фото в Higgsfield\n\n1) заходим в higgsfield\n2) нажать создать изображение\n3) выбрать nano banana pro\n4) ввести промпт ниже\n5) приложить свою фотку, где хорошо видно лицо\n\nPrompt: Transform my attached photo into a futuristic high-fashion editorial image. Ultra-bright studio lighting, clean white background, high contrast. Strong chromatic aberration along all edges. Motion blur streaks on hair. Dramatic elongated low-angle perspective. Keep my real face exactly the same.',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_404_photo.jpg', 'media/109_403_photo.jpg']
+      },
+      {
+        id: 226,
+        date: '2025-10-26',
+        text: 'ой девочки\n\nai фотосессия в higgsfield\nэто бесплатно и некоторые фото реально правдоподобны\n\nинструкция ниже 😈',
+        media_type: 'photo',
+        media_path: null,
+        photos: ['media/109_226_photo.jpg', 'media/109_225_photo.jpg', 'media/109_224_photo.jpg', 'media/109_223_photo.jpg']
       }
     ]
   },
