@@ -222,10 +222,14 @@ function screenCategory(catId) {
 }
 
 function postItem(post) {
-  const thumb = post.media_type === 'photo' && post.media_path
-    ? `<div class="post-thumb"><img src="${post.media_path}" loading="lazy"></div>`
+  const photos = post.photos || (post.media_path ? [post.media_path] : []);
+  const thumb = photos.length
+    ? `<div class="post-thumb">
+         <img src="${photos[0]}" loading="lazy">
+         ${photos.length > 1 ? `<span class="post-thumb-count">+${photos.length - 1}</span>` : ''}
+       </div>`
     : post.media_type === 'video'
-    ? `<div class="post-thumb">🎬</div>`
+    ? `<div class="post-thumb post-thumb-video"><span>▶</span></div>`
     : '';
 
   return `
@@ -235,7 +239,7 @@ function postItem(post) {
       <div class="post-meta">
         <span>${fmtDate(post.date)}</span>
         ${post.media_type === 'video' ? '<span class="post-badge">видео</span>' : ''}
-        ${post.media_type === 'photo' ? '<span class="post-badge">фото</span>' : ''}
+        ${photos.length > 1 ? `<span class="post-badge">${photos.length} фото</span>` : photos.length === 1 ? '<span class="post-badge">фото</span>' : ''}
       </div>
     </div>
   `;
@@ -251,10 +255,13 @@ function screenPost(postId) {
   }
   if (!post) return '';
 
-  const media = post.media_type === 'photo' && post.media_path
-    ? `<div class="post-detail-media"><img src="${post.media_path}"></div>`
+  const photos = post.photos || (post.media_path ? [post.media_path] : []);
+  const media = photos.length
+    ? photos.map(p => `<div class="post-detail-media"><img src="${p}" loading="lazy"></div>`).join('')
+    : post.media_type === 'video' && post.media_path
+    ? `<div class="post-detail-media"><video src="${post.media_path}" controls playsinline></video></div>`
     : post.media_type === 'video'
-    ? `<div class="post-detail-media">🎬</div>`
+    ? `<div class="post-detail-media post-detail-media-video"><span>▶ видео</span></div>`
     : '';
 
   return `
