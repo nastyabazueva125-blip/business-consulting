@@ -265,6 +265,15 @@ function screenPost(postId) {
   const photos = post.photos || (post.media_path ? [post.media_path] : []);
   const media = photos.length
     ? photos.map(p => `<div class="post-detail-media"><img src="${p}" loading="lazy"></div>`).join('')
+    : post.drive_id
+    ? `<div class="post-detail-media drive-video-wrap">
+         <div class="drive-poster" id="dp-${post.id}" onclick="loadDriveVideo(${post.id},'${post.drive_id}')" style="${post.poster ? `background-image:url('${post.poster}')` : 'background:#111'}">
+           <div class="drive-play-btn">▶</div>
+           <div class="drive-play-label">Нажми для просмотра</div>
+         </div>
+         <iframe id="dv-${post.id}" class="drive-iframe" style="display:none"
+           src="" allowfullscreen allow="autoplay"></iframe>
+       </div>`
     : post.media_type === 'video' && post.media_path
     ? `<div class="post-detail-media video-wrap">
          <video src="${post.media_path}" controls playsinline preload="none"${post.poster ? ` poster="${post.poster}"` : ''}></video>
@@ -342,6 +351,17 @@ function lessonTap(id) {
 function buyCourse() {
   tg.HapticFeedback.impactOccurred('medium');
   tg.openLink(COURSE.payLink);
+}
+
+// ─── GOOGLE DRIVE ВИДЕО ──────────────────────────────────────────────────────
+
+function loadDriveVideo(postId, driveId) {
+  const poster = document.getElementById('dp-' + postId);
+  const iframe = document.getElementById('dv-' + postId);
+  if (!poster || !iframe) return;
+  poster.style.display = 'none';
+  iframe.src = 'https://drive.google.com/file/d/' + driveId + '/preview';
+  iframe.style.display = 'block';
 }
 
 // ─── УРОК ─────────────────────────────────────────────────────────────────────
