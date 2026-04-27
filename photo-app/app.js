@@ -229,11 +229,17 @@ function screenCategory(catId) {
 }
 
 function postItem(post) {
-  const photos = post.photos || (post.media_path ? [post.media_path] : []);
+  const photos = post.photos || (post.media_path && post.media_type !== 'video' ? [post.media_path] : []);
+  const videoThumb = post.media_type === 'video' && post.poster ? post.poster : null;
   const thumb = photos.length
     ? `<div class="post-thumb">
          <img src="${photos[0]}" loading="lazy">
          ${photos.length > 1 ? `<span class="post-thumb-count">+${photos.length - 1}</span>` : ''}
+       </div>`
+    : videoThumb
+    ? `<div class="post-thumb post-thumb-video">
+         <img src="${videoThumb}" loading="lazy">
+         <span class="post-thumb-play">▶</span>
        </div>`
     : post.media_type === 'video'
     ? `<div class="post-thumb post-thumb-video"><span>▶</span></div>`
