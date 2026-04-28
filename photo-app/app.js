@@ -231,18 +231,21 @@ function screenCategory(catId) {
 function postItem(post) {
   const photos = post.photos || (post.media_path && post.media_type !== 'video' ? [post.media_path] : []);
   const videoThumb = post.media_type === 'video' && post.poster ? post.poster : null;
+  const locked = post.paid && !isUnlocked(post.id);
+  const playOrLock = locked ? '🔒' : '▶';
   const thumb = photos.length
     ? `<div class="post-thumb">
          <img src="${photos[0]}" loading="lazy">
          ${photos.length > 1 ? `<span class="post-thumb-count">+${photos.length - 1}</span>` : ''}
        </div>`
     : videoThumb
-    ? `<div class="post-thumb post-thumb-video">
+    ? `<div class="post-thumb post-thumb-video${locked ? ' locked' : ''}">
          <img src="${videoThumb}" loading="lazy">
-         <span class="post-thumb-play">▶</span>
+         <span class="post-thumb-play">${playOrLock}</span>
+         ${locked ? `<span class="post-thumb-paid">${post.price_rub}₽</span>` : ''}
        </div>`
     : post.media_type === 'video'
-    ? `<div class="post-thumb post-thumb-video"><span>▶</span></div>`
+    ? `<div class="post-thumb post-thumb-video"><span>${playOrLock}</span></div>`
     : '';
 
   return `
@@ -269,8 +272,18 @@ function screenPost(postId) {
   if (!post) return '';
 
   const photos = post.photos || (post.media_path ? [post.media_path] : []);
+  const isLocked = post.paid && !isUnlocked(post.id);
   const media = photos.length
     ? photos.map(p => `<div class="post-detail-media"><img src="${p}" loading="lazy"></div>`).join('')
+    : post.drive_id && isLocked
+    ? `<div class="post-detail-media drive-video-wrap">
+         <div class="drive-poster locked-poster" style="${post.poster ? `background-image:url('${post.poster}')` : 'background:#111'}">
+           <div class="lock-icon">🔒</div>
+           <div class="lock-label">Платный урок</div>
+           <div class="lock-price">${post.price_rub}₽ или ${post.price_stars} ⭐</div>
+           <button class="lock-btn" onclick="openPaywall(${post.id})">Открыть доступ</button>
+         </div>
+       </div>`
     : post.drive_id
     ? `<div class="post-detail-media drive-video-wrap">
          <div class="drive-poster" id="dp-${post.id}" onclick="loadDriveVideo(${post.id},'${post.drive_id}')" style="${post.poster ? `background-image:url('${post.poster}')` : 'background:#111'}">
@@ -368,6 +381,119 @@ function loadDriveVideo(postId, driveId) {
   poster.style.display = 'none';
   iframe.src = 'https://drive.google.com/file/d/' + driveId + '/preview';
   iframe.style.display = 'block';
+}
+
+// ─── ПЛАТНЫЙ КОНТЕНТ ──────────────────────────────────────────────────────────
+
+function isUnlocked(postId) {
+  try { return localStorage.getItem('unlocked_' + postId) === '1'; }
+  catch (e) { return false; }
+}
+
+function unlock(postId) {
+  try { localStorage.setItem('unlocked_' + postId, '1'); } catch (e) {}
+}
+
+function findPost(postId) {
+  for (const c of CATEGORIES) {
+    const p = c.posts.find(x => x.id === postId);
+    if (p) return p;
+  }
+  return null;
+}
+
+function openPaywall(postId) {
+  const post = findPost(postId);
+  if (!post) return;
+  tg.HapticFeedback.impactOccurred('light');
+
+  const modal = document.createElement('div');
+  modal.className = 'paywall-modal';
+  modal.innerHTML = `
+    <div class="paywall-backdrop" onclick="closePaywall()"></div>
+    <div class="paywall-card">
+      <button class="paywall-close" onclick="closePaywall()">✕</button>
+      <div class="paywall-emoji">🔒</div>
+      <div class="paywall-title">Открыть урок</div>
+      <div class="paywall-desc">${esc(post.text.split('\n')[0])}</div>
+      <div class="paywall-price">${post.price_rub}₽</div>
+
+      <button class="pay-option pay-stars" onclick="payWithStars(${post.id})">
+        <span class="pay-icon">⭐</span>
+        <span class="pay-text">
+          <strong>Telegram Stars</strong>
+          <small>Оплата прямо в Telegram</small>
+        </span>
+        <span class="pay-amount">${post.price_stars} ⭐</span>
+      </button>
+
+      <button class="pay-option pay-lava" onclick="payWithLava(${post.id})">
+        <span class="pay-icon">💳</span>
+        <span class="pay-text">
+          <strong>Картой через Lava</strong>
+          <small>Visa / Mastercard / СБП</small>
+        </span>
+        <span class="pay-amount">${post.price_rub} ₽</span>
+      </button>
+
+      <div class="paywall-note">После оплаты урок откроется автоматически</div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  requestAnimationFrame(() => modal.classList.add('show'));
+}
+
+function closePaywall() {
+  const modal = document.querySelector('.paywall-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  setTimeout(() => modal.remove(), 200);
+}
+
+function payWithStars(postId) {
+  const post = findPost(postId);
+  if (!post || !post.stars_invoice_url) {
+    tg.HapticFeedback.notificationOccurred('error');
+    alert('Ссылка на оплату Stars пока не настроена. Скоро добавим!');
+    return;
+  }
+  tg.HapticFeedback.impactOccurred('medium');
+  if (typeof tg.openInvoice === 'function') {
+    tg.openInvoice(post.stars_invoice_url, (status) => {
+      if (status === 'paid') {
+        unlock(postId);
+        closePaywall();
+        tg.HapticFeedback.notificationOccurred('success');
+        // Перерендер текущего экрана
+        const top = stack[stack.length - 1];
+        if (top) render(top.screen, top.params, 'forward');
+      } else if (status === 'failed' || status === 'cancelled') {
+        tg.HapticFeedback.notificationOccurred('warning');
+      }
+    });
+  } else {
+    tg.openLink(post.stars_invoice_url);
+  }
+}
+
+function payWithLava(postId) {
+  const post = findPost(postId);
+  if (!post || !post.lava_url || post.lava_url.includes('...')) {
+    tg.HapticFeedback.notificationOccurred('error');
+    alert('Ссылка на Lava пока не настроена. Скоро добавим!');
+    return;
+  }
+  tg.HapticFeedback.impactOccurred('medium');
+  tg.openLink(post.lava_url);
+  // Lava — внешняя оплата, разблокировка по возвращению (предлагаем подтвердить)
+  setTimeout(() => {
+    if (confirm('Оплата прошла успешно?')) {
+      unlock(postId);
+      closePaywall();
+      const top = stack[stack.length - 1];
+      if (top) render(top.screen, top.params, 'forward');
+    }
+  }, 3000);
 }
 
 // ─── УРОК ─────────────────────────────────────────────────────────────────────

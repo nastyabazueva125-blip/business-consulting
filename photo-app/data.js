@@ -209,7 +209,12 @@ const CATEGORIES = [
         text: '✨как делать ai фотки ✨подробный урок\n\nтут уже с промптами учимся создавать кастомные фотки, как я выкладывала с розовыми лошадьми в стиле сюрреализма  💧\n\nготовые промпты будут ниже 🌼',
         media_type: 'video',
         drive_id:   '1bK9xnypVPSRO3--YJ4uSdxG6En67ZRVA',
-        poster:     'media/thumb_271.jpg'
+        poster:     'media/thumb_271.jpg',
+        paid:       true,
+        price_rub:  290,
+        price_stars: 220,
+        stars_invoice_url: '',                           // TODO: t.me/$invoiceslug
+        lava_url:   'https://app.lava.top/...'           // TODO: ссылка с Lava Top
       },
       {
         id: 172,

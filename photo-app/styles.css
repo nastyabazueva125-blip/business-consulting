@@ -530,6 +530,171 @@ html, body {
   border: none;
 }
 
+/* Замок на превью в списке */
+.post-thumb-paid {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: #fff;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.3px;
+}
+
+/* Платный постер видео */
+.locked-poster {
+  position: relative;
+  cursor: default !important;
+}
+.locked-poster::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+}
+.locked-poster .lock-icon,
+.locked-poster .lock-label,
+.locked-poster .lock-price,
+.locked-poster .lock-btn {
+  position: relative;
+  z-index: 1;
+}
+.lock-icon { font-size: 36px; }
+.lock-label {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.lock-price {
+  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.lock-btn {
+  margin-top: 14px;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.lock-btn:active { transform: scale(0.97); }
+
+/* Модалка оплаты */
+.paywall-modal {
+  position: fixed; inset: 0;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.paywall-modal.show { opacity: 1; pointer-events: auto; }
+
+.paywall-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+}
+.paywall-card {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: #181818;
+  padding: 28px 20px 32px;
+  border-radius: 24px 24px 0 0;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.paywall-modal.show .paywall-card { transform: translateY(0); }
+
+.paywall-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.paywall-emoji { font-size: 38px; margin-bottom: 8px; }
+.paywall-title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.paywall-desc {
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.paywall-price {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+
+.pay-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.15s, transform 0.1s;
+}
+.pay-option:active {
+  background: rgba(255,255,255,0.1);
+  transform: scale(0.99);
+}
+.pay-icon { font-size: 22px; }
+.pay-text { flex: 1; color: #fff; }
+.pay-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+.pay-text small {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+.pay-amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.paywall-note {
+  color: rgba(255,255,255,0.4);
+  font-size: 11px;
+  margin-top: 14px;
+  letter-spacing: 0.3px;
+}
+
 .post-detail-text { font-size: 14px; line-height: 1.75; color: var(--text); }
 
 /* Курс */
