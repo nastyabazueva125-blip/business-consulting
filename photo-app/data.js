@@ -214,7 +214,7 @@ const CATEGORIES = [
         price_rub:  290,
         price_stars: 220,
         stars_invoice_url: '',                           // TODO: t.me/$invoiceslug
-        lava_url:   'https://app.lava.top/...'           // TODO: ссылка с Lava Top
+        lava_url:   'https://app.lava.top/products/e90b5a5b-38d4-4fff-8954-b9d1562621cf'
       },
       {
         id: 172,
