@@ -211,8 +211,8 @@ const CATEGORIES = [
         drive_id:   '1bK9xnypVPSRO3--YJ4uSdxG6En67ZRVA',
         poster:     'media/thumb_271.jpg',
         paid:       true,
-        price_rub:  290,
-        price_stars: 220,
+        price_rub:  699,
+        price_stars: 400,
         stars_invoice_url: '',                           // TODO: t.me/$invoiceslug
         lava_url:   'https://app.lava.top/products/e90b5a5b-38d4-4fff-8954-b9d1562621cf'
       },
